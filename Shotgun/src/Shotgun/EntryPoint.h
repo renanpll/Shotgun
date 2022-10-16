@@ -6,7 +6,9 @@ extern Shotgun::Application* Shotgun::CreateApplication();
 
 int main(int argc, char** argv)
 {
-	printf("Shotgun Engine\n");
+	Shotgun::Log::Init();
+	SG_CORE_INFO("Log Initialized!");
+
 	auto app = Shotgun::CreateApplication();
 	app->Run();
 	delete app;
