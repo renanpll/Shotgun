@@ -2,8 +2,6 @@
 
 #include "Event.h"
 
-#include <sstream>
-
 namespace Shotgun {
 
 	class SHOTGUN_API WindowResizeEvent : public Event

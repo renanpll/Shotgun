@@ -1,9 +1,7 @@
 #pragma once
 
+#include "sgpch.h"
 #include "Shotgun/Core.h"
-
-#include <string>
-#include <functional>
 
 namespace Shotgun {
 

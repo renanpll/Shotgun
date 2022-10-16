@@ -18,6 +18,9 @@ project "Shotgun"
 	targetdir ("bin/" .. outputDir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
 
+	pchheader "sgpch.h"
+	pchsource "Shotgun/src/sgpch.cpp"
+
 	files
 	{
 		"%{prj.name}/src/**.h",

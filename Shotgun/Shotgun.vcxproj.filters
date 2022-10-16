@@ -34,6 +34,7 @@
     <ClInclude Include="src\Shotgun\Log.h">
       <Filter>Shotgun</Filter>
     </ClInclude>
+    <ClInclude Include="src\sgpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Shotgun\Application.cpp">
@@ -42,5 +43,6 @@
     <ClCompile Include="src\Shotgun\Log.cpp">
       <Filter>Shotgun</Filter>
     </ClCompile>
+    <ClCompile Include="src\sgpch.cpp" />
   </ItemGroup>
 </Project>
