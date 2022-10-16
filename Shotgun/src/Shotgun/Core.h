@@ -9,3 +9,5 @@
 #else
 	#error Platform not supported!
 #endif // SG_PLATFORM_WINDOW
+
+#define BIT(x) (1 << x)

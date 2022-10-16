@@ -4,6 +4,9 @@
     <Filter Include="Shotgun">
       <UniqueIdentifier>{EDD293F3-59B2-128F-62CA-9D65CE2879F0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shotgun\Events">
+      <UniqueIdentifier>{31523B55-1D20-2F5B-06B4-9F81F2200BC0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Shotgun.h" />
@@ -15,6 +18,18 @@
     </ClInclude>
     <ClInclude Include="src\Shotgun\EntryPoint.h">
       <Filter>Shotgun</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Shotgun\Events\ApplicationEvent.h">
+      <Filter>Shotgun\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Shotgun\Events\Event.h">
+      <Filter>Shotgun\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Shotgun\Events\KeyEvents.h">
+      <Filter>Shotgun\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Shotgun\Events\MouseEvents.h">
+      <Filter>Shotgun\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Shotgun\Log.h">
       <Filter>Shotgun</Filter>
