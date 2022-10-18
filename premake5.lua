@@ -10,6 +10,12 @@ workspace "Shotgun"
 
 outputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- Include directories relative to root folder (solution directory)
+IncludeDir = {}
+IncludeDir["GLFW"] = "Shotgun/vendor/GLFW/include"
+
+include "Shotgun/vendor/GLFW"
+
 project "Shotgun"
 	location "Shotgun"
 	kind "SharedLib"
@@ -30,7 +36,14 @@ project "Shotgun"
 	includedirs
 	{
 		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include"
+		"%{prj.name}/vendor/spdlog/include",
+		"%{IncludeDir.GLFW}"
+	}
+
+	links 
+	{ 
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"
@@ -50,7 +63,7 @@ project "Shotgun"
 		}
 
 	filter "configurations:Debug"
-		defines "SG_DEBUG"
+		defines {"SG_DEBUG", "SG_ENABLE_ASSERTS"}
 		symbols "On"
 
 	filter "configurations:Release"

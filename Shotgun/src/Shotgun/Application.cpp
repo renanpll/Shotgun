@@ -1,28 +1,24 @@
 #include "sgpch.h"
 #include "Application.h"
 
-#include "Shotgun/Log.h"
-#include "Events/ApplicationEvent.h"
-#include "Events/KeyEvents.h"
+#include "GLFW/glfw3.h"
 
 namespace Shotgun
 {
 	Application::Application()
 	{
+		m_Window = std::unique_ptr<Window>(Window::Create());
 	}
 	Application::~Application()
 	{
 	}
 	void Application::Run()
 	{
-		KeyPressedEvent e(12, 10);
-		if (e.IsInCategory(EventCategoryApplication)) {
-			SG_CORE_TRACE(e);
+		while (m_Running)
+		{
+			glClearColor(1, 0, 1, 1);
+			glClear(GL_COLOR_BUFFER_BIT);
+			m_Window->OnUpdate();
 		}
-		else {
-			SG_CORE_WARN(e);
-		}
-
-		while (true);
 	}
 }
