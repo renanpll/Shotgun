@@ -40,6 +40,12 @@
     <ClInclude Include="src\Shotgun\Events\MouseEvent.h">
       <Filter>Shotgun\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Shotgun\Layer.h">
+      <Filter>Shotgun</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Shotgun\LayerStack.h">
+      <Filter>Shotgun</Filter>
+    </ClInclude>
     <ClInclude Include="src\Shotgun\Log.h">
       <Filter>Shotgun</Filter>
     </ClInclude>
@@ -53,6 +59,12 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Shotgun\Application.cpp">
+      <Filter>Shotgun</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shotgun\Layer.cpp">
+      <Filter>Shotgun</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shotgun\LayerStack.cpp">
       <Filter>Shotgun</Filter>
     </ClCompile>
     <ClCompile Include="src\Shotgun\Log.cpp">

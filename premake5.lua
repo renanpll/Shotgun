@@ -64,14 +64,17 @@ project "Shotgun"
 
 	filter "configurations:Debug"
 		defines {"SG_DEBUG", "SG_ENABLE_ASSERTS"}
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "SG_Release"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "SG_Dist"
+		buildoptions "/MD"
 		optimize "On"
 
 project "Sandbox"
@@ -111,12 +114,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "SG_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "SG_Release"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "SG_Dist"
+		buildoptions "/MD"
 		optimize "On"
