@@ -34,10 +34,10 @@
     <ClInclude Include="src\Shotgun\Events\Event.h">
       <Filter>Shotgun\Events</Filter>
     </ClInclude>
-    <ClInclude Include="src\Shotgun\Events\KeyEvents.h">
+    <ClInclude Include="src\Shotgun\Events\KeyEvent.h">
       <Filter>Shotgun\Events</Filter>
     </ClInclude>
-    <ClInclude Include="src\Shotgun\Events\MouseEvents.h">
+    <ClInclude Include="src\Shotgun\Events\MouseEvent.h">
       <Filter>Shotgun\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Shotgun\Log.h">

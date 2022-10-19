@@ -159,8 +159,8 @@
     <ClInclude Include="src\Shotgun\EntryPoint.h" />
     <ClInclude Include="src\Shotgun\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Shotgun\Events\Event.h" />
-    <ClInclude Include="src\Shotgun\Events\KeyEvents.h" />
-    <ClInclude Include="src\Shotgun\Events\MouseEvents.h" />
+    <ClInclude Include="src\Shotgun\Events\KeyEvent.h" />
+    <ClInclude Include="src\Shotgun\Events\MouseEvent.h" />
     <ClInclude Include="src\Shotgun\Log.h" />
     <ClInclude Include="src\Shotgun\Window.h" />
     <ClInclude Include="src\sgpch.h" />
