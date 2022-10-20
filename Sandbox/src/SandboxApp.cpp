@@ -26,7 +26,7 @@ class Sandbox : public Shotgun::Application
 public:
 	Sandbox()
 	{
-		PushLayer(new ExampleLayer());
+		//PushLayer(new ExampleLayer());
 		PushOverlay(new Shotgun::ImGuiLayer());
 	}
 
