@@ -4,3 +4,6 @@
 [submodule "Shotgun/vendor/GLFW"]
 	path = Shotgun/vendor/GLFW
 	url = https://github.com/renanpll/glfw.git
+[submodule "Shotgun/vendor/imgui"]
+	path = Shotgun/vendor/imgui
+	url = https://github.com/renanpll/imgui.git

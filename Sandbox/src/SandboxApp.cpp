@@ -27,6 +27,7 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
+		PushOverlay(new Shotgun::ImGuiLayer());
 	}
 
 	~Sandbox()
