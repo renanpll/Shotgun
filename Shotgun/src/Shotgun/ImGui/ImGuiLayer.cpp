@@ -156,7 +156,6 @@ namespace Shotgun {
 		ImGuiIO& io = ImGui::GetIO();
 		int keycode = event.GetKeyCode();
 
-		SG_CORE_INFO("KeyTypeEVent fired");
 		if (keycode > 0 && keycode < 0x10000)
 			io.AddInputCharacter((unsigned short)keycode);
 

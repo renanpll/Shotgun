@@ -153,6 +153,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\Shotgun.h" />
     <ClInclude Include="src\Shotgun\Application.h" />
@@ -163,6 +164,7 @@
     <ClInclude Include="src\Shotgun\Events\KeyEvent.h" />
     <ClInclude Include="src\Shotgun\Events\MouseEvent.h" />
     <ClInclude Include="src\Shotgun\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\Shotgun\Input.h" />
     <ClInclude Include="src\Shotgun\Layer.h" />
     <ClInclude Include="src\Shotgun\LayerStack.h" />
     <ClInclude Include="src\Shotgun\Log.h" />
@@ -171,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\Shotgun\Application.cpp" />
     <ClCompile Include="src\Shotgun\ImGui\ImGuiLayer.cpp" />

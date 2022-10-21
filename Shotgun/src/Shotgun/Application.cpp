@@ -2,6 +2,7 @@
 #include "Application.h"
 
 #include "glad/glad.h"
+#include "Shotgun/Input.h"
 
 namespace Shotgun
 {
