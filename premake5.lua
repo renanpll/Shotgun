@@ -24,6 +24,7 @@ project "Shotgun"
 	location "Shotgun"
 	kind "SharedLib"
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputDir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
@@ -56,7 +57,6 @@ project "Shotgun"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -72,24 +72,25 @@ project "Shotgun"
 		}
 
 	filter "configurations:Debug"
-		defines {"SG_DEBUG", "SG_ENABLE_ASSERTS"}
-		buildoptions "/MDd"
+		defines {"SG_DEBUG"}
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "SG_Release"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "SG_Dist"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputDir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
@@ -113,7 +114,6 @@ project "Sandbox"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -123,15 +123,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "SG_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "SG_Release"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "SG_Dist"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
