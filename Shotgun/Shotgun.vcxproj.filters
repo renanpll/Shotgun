@@ -58,6 +58,9 @@
     <ClInclude Include="src\Shotgun\Input.h">
       <Filter>Shotgun</Filter>
     </ClInclude>
+    <ClInclude Include="src\Shotgun\KeyCodes.h">
+      <Filter>Shotgun</Filter>
+    </ClInclude>
     <ClInclude Include="src\Shotgun\Layer.h">
       <Filter>Shotgun</Filter>
     </ClInclude>
@@ -65,6 +68,9 @@
       <Filter>Shotgun</Filter>
     </ClInclude>
     <ClInclude Include="src\Shotgun\Log.h">
+      <Filter>Shotgun</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Shotgun\MouseButtonCodes.h">
       <Filter>Shotgun</Filter>
     </ClInclude>
     <ClInclude Include="src\Shotgun\Window.h">

@@ -165,9 +165,11 @@
     <ClInclude Include="src\Shotgun\Events\MouseEvent.h" />
     <ClInclude Include="src\Shotgun\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Shotgun\Input.h" />
+    <ClInclude Include="src\Shotgun\KeyCodes.h" />
     <ClInclude Include="src\Shotgun\Layer.h" />
     <ClInclude Include="src\Shotgun\LayerStack.h" />
     <ClInclude Include="src\Shotgun\Log.h" />
+    <ClInclude Include="src\Shotgun\MouseButtonCodes.h" />
     <ClInclude Include="src\Shotgun\Window.h" />
     <ClInclude Include="src\sgpch.h" />
   </ItemGroup>

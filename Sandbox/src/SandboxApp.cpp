@@ -11,12 +11,15 @@ public:
 
 	void OnUpdate() override
 	{
-		SG_TRACE("ExampleLayer::Update");
 	}
 
 	void OnEvent(Shotgun::Event& event) override
 	{
-		SG_INFO("{0}", event);
+		if (event.GetEventType() == Shotgun::EventType::KeyPressed) {
+			Shotgun::KeyPressedEvent& e = (Shotgun::KeyPressedEvent&) event;
+
+			SG_INFO((char)e.GetKeyCode());
+		}
 	}
 
 };
@@ -26,7 +29,7 @@ class Sandbox : public Shotgun::Application
 public:
 	Sandbox()
 	{
-		//PushLayer(new ExampleLayer());
+		PushLayer(new ExampleLayer());
 		PushOverlay(new Shotgun::ImGuiLayer());
 	}
 
