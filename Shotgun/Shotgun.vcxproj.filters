@@ -4,6 +4,9 @@
     <Filter Include="Platform">
       <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Platform\OpenGL">
+      <UniqueIdentifier>{1E7D2C1D-8A08-9AE1-9319-1DD6FF23F6E1}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Platform\Windows">
       <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
     </Filter>
@@ -16,8 +19,14 @@
     <Filter Include="Shotgun\ImGui">
       <UniqueIdentifier>{D7055C12-43C6-D748-0C01-21C678801C25}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shotgun\Renderer">
+      <UniqueIdentifier>{33B15388-1FAA-72DA-48DC-575F343452E6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsInput.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
@@ -67,12 +76,18 @@
     <ClInclude Include="src\Shotgun\MouseButtonCodes.h">
       <Filter>Shotgun</Filter>
     </ClInclude>
+    <ClInclude Include="src\Shotgun\Renderer\GraphicsContext.h">
+      <Filter>Shotgun\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Shotgun\Window.h">
       <Filter>Shotgun</Filter>
     </ClInclude>
     <ClInclude Include="src\sgpch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>

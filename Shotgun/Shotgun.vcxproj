@@ -143,6 +143,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\Shotgun.h" />
@@ -160,10 +161,12 @@
     <ClInclude Include="src\Shotgun\LayerStack.h" />
     <ClInclude Include="src\Shotgun\Log.h" />
     <ClInclude Include="src\Shotgun\MouseButtonCodes.h" />
+    <ClInclude Include="src\Shotgun\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Shotgun\Window.h" />
     <ClInclude Include="src\sgpch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\Shotgun\Application.cpp" />

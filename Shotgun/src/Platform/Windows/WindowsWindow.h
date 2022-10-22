@@ -2,6 +2,8 @@
 
 #include "Shotgun/Window.h"
 
+#include "Shotgun/Renderer/GraphicsContext.h"
+
 #include <GLFW/glfw3.h>
 
 namespace Shotgun {
@@ -29,6 +31,7 @@ namespace Shotgun {
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 
 		struct WindowData
 		{
