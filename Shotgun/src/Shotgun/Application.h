@@ -7,6 +7,8 @@
 #include "Shotgun/LayerStack.h"
 #include "Window.h"
 
+#include "ImGui/ImGuiLayer.h"
+
 namespace Shotgun
 {
 	class SHOTGUN_API Application
@@ -31,6 +33,8 @@ namespace Shotgun
 		bool m_Running = true;
 		
 		LayerStack m_LayerStack;
+
+		ImGuiLayer* m_ImGuiLayer;
 
 		static Application* s_Instance;
 
