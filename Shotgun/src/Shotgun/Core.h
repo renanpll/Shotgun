@@ -1,11 +1,15 @@
 #pragma once
 
 #ifdef SG_PLATFORM_WINDOWS
-	#ifdef SG_BUILD_DLL
-		#define SHOTGUN_API __declspec(dllexport)
+	#if SG_DYNAMIC_LINK
+		#ifdef SG_BUILD_DLL
+			#define SHOTGUN_API __declspec(dllexport)
+		#else
+			#define SHOTGUN_API __declspec(dllimport)
+		#endif // SG_BUILD_DLL
 	#else
-		#define SHOTGUN_API __declspec(dllimport)
-	#endif // SG_BUILD_DLL
+		#define SHOTGUN_API
+	#endif //SG_DYNAMIC_LINK
 #else
 	#error Platform not supported!
 #endif // SG_PLATFORM_WINDOW

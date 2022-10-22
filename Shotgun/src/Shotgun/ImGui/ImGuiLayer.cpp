@@ -3,10 +3,14 @@
 #include "sgpch.h"
 #include "ImGuiLayer.h"
 
-#include "backends/imgui_impl_opengl3.cpp"
-#include "backends/imgui_impl_glfw.cpp"
+#include "backends/imgui_impl_opengl3.h"
+#include "backends/imgui_impl_glfw.h"
 
 #include "Shotgun/Application.h"
+
+// To be removed
+#include <GLFW/glfw3.h>
+#include <glad/glad.h>
 
 namespace Shotgun {
 
@@ -76,7 +80,7 @@ namespace Shotgun {
 	{
 		ImGuiIO& io = ImGui::GetIO();
 		Application& app = Application::Get();
-		io.DisplaySize = ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
+		io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());
 
 		// Rendering
 		ImGui::Render();
