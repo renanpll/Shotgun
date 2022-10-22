@@ -5,7 +5,6 @@ namespace Shotgun {
 
 	LayerStack::LayerStack()
 	{
-		m_Layers.begin();
 	}
 
 	LayerStack::~LayerStack()

@@ -14,8 +14,6 @@
 	#error Platform not supported!
 #endif // SG_PLATFORM_WINDOW
 
-#define SG_ENABLE_ASSERTS 0
-
 #ifdef SG_DEBUG
 	#define SG_ENABLE_ASSERTS 1
 #endif

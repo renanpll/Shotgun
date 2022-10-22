@@ -30,7 +30,7 @@ namespace Shotgun {
 		double xPos, yPos;
 		glfwGetCursorPos(window, &xPos, &yPos);
 
-		return { xPos, yPos };
+		return { (float)xPos, (float)yPos };
 	}
 
 	float WindowsInput::GetMouseYImpl() {
