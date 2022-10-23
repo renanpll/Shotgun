@@ -15,9 +15,12 @@ namespace Shotgun {
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
 
-	private:
+		virtual const BufferLayout& GetLayout() const override { return m_Layout; }
+		virtual void SetLayout(BufferLayout& layout) override { m_Layout = layout; }
 
+	private:
 		uint32_t m_RendererID;
+		BufferLayout m_Layout;
 	};
 
 
