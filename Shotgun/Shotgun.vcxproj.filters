@@ -24,6 +24,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
       <Filter>Platform\OpenGL</Filter>
     </ClInclude>
@@ -76,7 +79,13 @@
     <ClInclude Include="src\Shotgun\MouseButtonCodes.h">
       <Filter>Shotgun</Filter>
     </ClInclude>
+    <ClInclude Include="src\Shotgun\Renderer\Buffer.h">
+      <Filter>Shotgun\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Shotgun\Renderer\GraphicsContext.h">
+      <Filter>Shotgun\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Shotgun\Renderer\Renderer.h">
       <Filter>Shotgun\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Shotgun\Renderer\Shader.h">
@@ -88,6 +97,9 @@
     <ClInclude Include="src\sgpch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
       <Filter>Platform\OpenGL</Filter>
     </ClCompile>
@@ -114,6 +126,12 @@
     </ClCompile>
     <ClCompile Include="src\Shotgun\Log.cpp">
       <Filter>Shotgun</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shotgun\Renderer\Buffer.cpp">
+      <Filter>Shotgun\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shotgun\Renderer\Renderer.cpp">
+      <Filter>Shotgun\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Shotgun\Renderer\Shader.cpp">
       <Filter>Shotgun\Renderer</Filter>
