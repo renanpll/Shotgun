@@ -162,6 +162,7 @@
     <ClInclude Include="src\Shotgun\Log.h" />
     <ClInclude Include="src\Shotgun\MouseButtonCodes.h" />
     <ClInclude Include="src\Shotgun\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Shotgun\Renderer\Shader.h" />
     <ClInclude Include="src\Shotgun\Window.h" />
     <ClInclude Include="src\sgpch.h" />
   </ItemGroup>
@@ -175,6 +176,7 @@
     <ClCompile Include="src\Shotgun\Layer.cpp" />
     <ClCompile Include="src\Shotgun\LayerStack.cpp" />
     <ClCompile Include="src\Shotgun\Log.cpp" />
+    <ClCompile Include="src\Shotgun\Renderer\Shader.cpp" />
     <ClCompile Include="src\sgpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>

@@ -79,6 +79,9 @@
     <ClInclude Include="src\Shotgun\Renderer\GraphicsContext.h">
       <Filter>Shotgun\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Shotgun\Renderer\Shader.h">
+      <Filter>Shotgun\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Shotgun\Window.h">
       <Filter>Shotgun</Filter>
     </ClInclude>
@@ -111,6 +114,9 @@
     </ClCompile>
     <ClCompile Include="src\Shotgun\Log.cpp">
       <Filter>Shotgun</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shotgun\Renderer\Shader.cpp">
+      <Filter>Shotgun\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\sgpch.cpp" />
   </ItemGroup>

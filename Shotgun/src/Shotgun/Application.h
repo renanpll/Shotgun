@@ -8,6 +8,7 @@
 #include "Window.h"
 
 #include "ImGui/ImGuiLayer.h"
+#include "Shotgun/Renderer/Shader.h"
 
 namespace Shotgun
 {
@@ -39,6 +40,7 @@ namespace Shotgun
 		static Application* s_Instance;
 
 		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		std::unique_ptr<Shader> m_Shader;
 
 		bool OnWindowClose(WindowCloseEvent);
 	};
