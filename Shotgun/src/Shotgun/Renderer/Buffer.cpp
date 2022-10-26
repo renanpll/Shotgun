@@ -10,8 +10,8 @@ namespace Shotgun {
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::OpenGL:
-				return new OpenGLVertexBuffer(vertices, size);
+			case RendererAPI::API::OpenGL:
+			return new OpenGLVertexBuffer(vertices, size);
 		}
 
 		SG_CORE_ASSERT(false, "Unknown Renderer API.");
@@ -22,7 +22,7 @@ namespace Shotgun {
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 				return new OpenGLIndexBuffer(indices, size);
 				int i = 0;
 			}
