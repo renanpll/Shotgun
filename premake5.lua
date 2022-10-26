@@ -110,6 +110,7 @@ project "Sandbox"
 	{
 		"Shotgun/vendor/spdlog/include",
 		"Shotgun/src",
+		"Shotgun/vendor",
 		"%{IncludeDir.glm}"
 	}
 

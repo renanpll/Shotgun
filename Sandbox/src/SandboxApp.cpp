@@ -1,5 +1,7 @@
-
 #include "Shotgun.h"
+
+#include "imgui/imgui.h"
+
 
 class ExampleLayer : public Shotgun::Layer
 {
@@ -20,6 +22,13 @@ public:
 
 			SG_INFO((char)e.GetKeyCode());
 		}
+	}
+
+	virtual void OnImGuiRender() override
+	{
+		ImGui::Begin("Test");
+		ImGui::Text("Hello World");
+		ImGui::End();
 	}
 
 };
