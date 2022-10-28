@@ -8,13 +8,10 @@
 #include "Window.h"
 
 #include "ImGui/ImGuiLayer.h"
-#include "Shotgun/Renderer/Shader.h"
-#include "Renderer/Buffer.h"
-#include "Renderer/VertexArray.h"
 
 namespace Shotgun
 {
-	class SHOTGUN_API Application
+	class Application
 	{
 	public:
 		Application();
@@ -40,12 +37,6 @@ namespace Shotgun
 		ImGuiLayer* m_ImGuiLayer;
 
 		static Application* s_Instance;
-
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexArray> m_VertexArray;
-
-		std::shared_ptr<Shader> m_BlueShader;
-		std::shared_ptr<VertexArray> m_SquareVA;
 
 		bool OnWindowClose(WindowCloseEvent);
 	};

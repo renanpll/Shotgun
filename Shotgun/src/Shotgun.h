@@ -12,5 +12,7 @@
 
 #include "Shotgun/ImGui/ImGuiLayer.h"
 
+#include "Shotgun/Renderer/Renderer.h"
+
 // Entry point
 #include "Shotgun/EntryPoint.h"

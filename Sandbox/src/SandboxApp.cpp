@@ -7,29 +7,180 @@ class ExampleLayer : public Shotgun::Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example")
+		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f), m_CameraRotation(0.0f)
 	{
+
+		m_VertexArray.reset(Shotgun::VertexArray::Create());
+
+		float vertices[3 * 7] = {
+			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
+			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
+			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
+		};
+
+		Shotgun::BufferLayout layout = {
+			{ Shotgun::ShaderDataType::Float3, "a_Position" },
+			{ Shotgun::ShaderDataType::Float4, "a_Color" }
+		};
+
+		std::shared_ptr<Shotgun::VertexBuffer> vertexBuffer;
+		vertexBuffer.reset(Shotgun::VertexBuffer::Create(vertices, sizeof(vertices)));
+
+		vertexBuffer->SetLayout(layout);
+		m_VertexArray->AddVertexBuffer(vertexBuffer);
+
+		unsigned int indices[3] = { 0,1,2 };
+		std::shared_ptr<Shotgun::IndexBuffer> indexBuffer;
+		indexBuffer.reset(Shotgun::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		m_VertexArray->SetIndexBuffer(indexBuffer);
+
+		m_SquareVA.reset(Shotgun::VertexArray::Create());
+
+		float squareVertices[3 * 4] = {
+			-0.75f, -0.75f, 0.0f,
+			 0.75f, -0.75f, 0.0f,
+			 0.75f,  0.75f, 0.0f,
+			-0.75f,  0.75f, 0.0f
+		};
+
+		std::shared_ptr<Shotgun::VertexBuffer> squareVB;
+		squareVB.reset(Shotgun::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+
+		Shotgun::BufferLayout squareLayout = { { Shotgun::ShaderDataType::Float3, "a_Position" } };
+		squareVB->SetLayout(squareLayout);
+
+		m_SquareVA->AddVertexBuffer(squareVB);
+
+		unsigned int squareIndices[6] = { 0,1,2,2,3,0 };
+		std::shared_ptr<Shotgun::IndexBuffer> squareIndexBuffer;
+		squareIndexBuffer.reset(Shotgun::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+
+		m_SquareVA->SetIndexBuffer(squareIndexBuffer);
+
+		std::string vertexSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec4 a_Color;
+
+			uniform mat4 u_ViewProjection;
+
+			out vec3 v_Position;
+			out vec4 v_Color;
+
+			void main()
+			{
+				v_Position = a_Position;
+				v_Color = a_Color;
+				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);	
+			}
+		)";
+
+		std::string fragmentSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+
+			in vec3 v_Position;
+			in vec4 v_Color;
+
+			void main()
+			{
+				color = vec4(v_Position * 0.5 + 0.5, 1.0);
+				color = v_Color;
+			}
+		)";
+
+		m_Shader.reset(new Shotgun::Shader(vertexSrc, fragmentSrc));
+
+		std::string blueShaderVertexSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
+
+			uniform mat4 u_ViewProjection;
+
+			out vec3 v_Position;
+
+			void main()
+			{
+				v_Position = a_Position;
+				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);	
+			}
+		)";
+
+		std::string blueShaderFragmentSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+
+			in vec3 v_Position;
+
+			void main()
+			{
+				color = vec4(0.2, 0.3, 0.8, 1.0);
+			}
+		)";
+
+		m_BlueShader.reset(new Shotgun::Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
 	}
 
 	void OnUpdate() override
 	{
+		if (Shotgun::Input::IsKeyPressed(SG_KEY_LEFT) || Shotgun::Input::IsKeyPressed(SG_KEY_A))
+			m_CameraPosition.x += m_CameraSpeed;
+		else if (Shotgun::Input::IsKeyPressed(SG_KEY_RIGHT) || Shotgun::Input::IsKeyPressed(SG_KEY_D))
+			m_CameraPosition.x -= m_CameraSpeed;
+
+		if (Shotgun::Input::IsKeyPressed(SG_KEY_UP) || Shotgun::Input::IsKeyPressed(SG_KEY_W))
+			m_CameraPosition.y -= m_CameraSpeed;
+		else if (Shotgun::Input::IsKeyPressed(SG_KEY_DOWN) || Shotgun::Input::IsKeyPressed(SG_KEY_S))
+			m_CameraPosition.y += m_CameraSpeed;
+
+		if (Shotgun::Input::IsKeyPressed(SG_KEY_Q))
+			m_CameraRotation -= m_CameraSpeed * 10;
+		else if (Shotgun::Input::IsKeyPressed(SG_KEY_E))
+			m_CameraRotation += m_CameraSpeed * 10;
+
+		if (Shotgun::Input::IsKeyPressed(SG_KEY_SPACE))
+		{
+			m_CameraPosition = glm::vec3(0.0f);
+			m_CameraRotation = 0.0f;
+		}
+
+		Shotgun::RenderCommand::SetClearColor({ 0.1F, 0.1F, 0.1F, 1 });
+		Shotgun::RenderCommand::Clear();
+
+		m_Camera.SetPosition(m_CameraPosition);
+		m_Camera.SetRotation(m_CameraRotation);
+
+		Shotgun::Renderer::BeginScene(m_Camera);
+		Shotgun::Renderer::Submit(m_BlueShader, m_SquareVA);
+		Shotgun::Renderer::Submit(m_Shader, m_VertexArray);
+		Shotgun::Renderer::EndScene();
+
 	}
 
 	void OnEvent(Shotgun::Event& event) override
 	{
-		if (event.GetEventType() == Shotgun::EventType::KeyPressed) {
-			Shotgun::KeyPressedEvent& e = (Shotgun::KeyPressedEvent&) event;
-
-			SG_INFO((char)e.GetKeyCode());
-		}
 	}
 
 	virtual void OnImGuiRender() override
 	{
-		ImGui::Begin("Test");
-		ImGui::Text("Hello World");
-		ImGui::End();
 	}
+
+private:
+
+	std::shared_ptr<Shotgun::Shader> m_Shader;
+	std::shared_ptr<Shotgun::VertexArray> m_VertexArray;
+
+	std::shared_ptr<Shotgun::Shader> m_BlueShader;
+	std::shared_ptr<Shotgun::VertexArray> m_SquareVA;
+
+	Shotgun::OrthographicCamera m_Camera;
+	glm::vec3 m_CameraPosition;
+	float m_CameraRotation;
+	float m_CameraSpeed = 0.1f;
 
 };
 
@@ -43,7 +194,6 @@ public:
 
 	~Sandbox()
 	{
-
 	}
 
 };
