@@ -7,6 +7,8 @@
 #include "Shotgun/LayerStack.h"
 #include "Window.h"
 
+#include "Shotgun/Core/Timestep.h"
+
 #include "ImGui/ImGuiLayer.h"
 
 namespace Shotgun
@@ -35,6 +37,8 @@ namespace Shotgun
 		LayerStack m_LayerStack;
 
 		ImGuiLayer* m_ImGuiLayer;
+
+		float m_LastFrameTime = 0.0f;
 
 		static Application* s_Instance;
 

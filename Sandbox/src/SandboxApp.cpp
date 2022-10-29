@@ -1,6 +1,7 @@
 #include "Shotgun.h"
 
 #include "imgui/imgui.h"
+#include <glm/gtc/matrix_transform.hpp>
 
 
 class ExampleLayer : public Shotgun::Layer
@@ -37,10 +38,10 @@ public:
 		m_SquareVA.reset(Shotgun::VertexArray::Create());
 
 		float squareVertices[3 * 4] = {
-			-0.75f, -0.75f, 0.0f,
-			 0.75f, -0.75f, 0.0f,
-			 0.75f,  0.75f, 0.0f,
-			-0.75f,  0.75f, 0.0f
+			-0.5f, -0.5f, 0.0f,
+			 0.5f, -0.5f, 0.0f,
+			 0.5f,  0.5f, 0.0f,
+			-0.5f,  0.5f, 0.0f
 		};
 
 		std::shared_ptr<Shotgun::VertexBuffer> squareVB;
@@ -64,6 +65,7 @@ public:
 			layout(location = 1) in vec4 a_Color;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
 			out vec3 v_Position;
 			out vec4 v_Color;
@@ -72,7 +74,7 @@ public:
 			{
 				v_Position = a_Position;
 				v_Color = a_Color;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);	
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);	
 			}
 		)";
 
@@ -99,13 +101,14 @@ public:
 			layout(location = 0) in vec3 a_Position;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
 			out vec3 v_Position;
 
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);	
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);	
 			}
 		)";
 
@@ -125,22 +128,23 @@ public:
 		m_BlueShader.reset(new Shotgun::Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
 	}
 
-	void OnUpdate() override
+	void OnUpdate(Shotgun::Timestep ts) override
 	{
+
 		if (Shotgun::Input::IsKeyPressed(SG_KEY_LEFT) || Shotgun::Input::IsKeyPressed(SG_KEY_A))
-			m_CameraPosition.x += m_CameraSpeed;
+			m_CameraPosition.x += m_CameraSpeed * ts;
 		else if (Shotgun::Input::IsKeyPressed(SG_KEY_RIGHT) || Shotgun::Input::IsKeyPressed(SG_KEY_D))
-			m_CameraPosition.x -= m_CameraSpeed;
+			m_CameraPosition.x -= m_CameraSpeed * ts;
 
 		if (Shotgun::Input::IsKeyPressed(SG_KEY_UP) || Shotgun::Input::IsKeyPressed(SG_KEY_W))
-			m_CameraPosition.y -= m_CameraSpeed;
+			m_CameraPosition.y -= m_CameraSpeed * ts;
 		else if (Shotgun::Input::IsKeyPressed(SG_KEY_DOWN) || Shotgun::Input::IsKeyPressed(SG_KEY_S))
-			m_CameraPosition.y += m_CameraSpeed;
+			m_CameraPosition.y += m_CameraSpeed * ts;
 
 		if (Shotgun::Input::IsKeyPressed(SG_KEY_Q))
-			m_CameraRotation -= m_CameraSpeed * 10;
+			m_CameraRotation -= m_CameraSpeed * 10 * ts;
 		else if (Shotgun::Input::IsKeyPressed(SG_KEY_E))
-			m_CameraRotation += m_CameraSpeed * 10;
+			m_CameraRotation += m_CameraSpeed * 10 * ts;
 
 		if (Shotgun::Input::IsKeyPressed(SG_KEY_SPACE))
 		{
@@ -155,7 +159,20 @@ public:
 		m_Camera.SetRotation(m_CameraRotation);
 
 		Shotgun::Renderer::BeginScene(m_Camera);
-		Shotgun::Renderer::Submit(m_BlueShader, m_SquareVA);
+
+		glm::mat4 scale = glm::scale(glm::mat4(1.f), glm::vec3(0.1f));
+
+		
+		for (int y = 0; y < 20; y++)
+		{
+			for (int x = 0; x < 20; x++)
+			{
+				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
+				glm::mat4 transform = glm::translate(glm::mat4(1.f), pos) * scale;
+				Shotgun::Renderer::Submit(m_BlueShader, m_SquareVA, transform);
+			}
+		}
+		
 		Shotgun::Renderer::Submit(m_Shader, m_VertexArray);
 		Shotgun::Renderer::EndScene();
 
@@ -180,7 +197,7 @@ private:
 	Shotgun::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
 	float m_CameraRotation;
-	float m_CameraSpeed = 0.1f;
+	float m_CameraSpeed = 3.f;
 
 };
 

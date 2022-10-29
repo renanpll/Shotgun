@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Shotgun/Core.h"
+#include "Shotgun/Core/Timestep.h"
 #include "Shotgun/Events/Event.h"
 
 namespace Shotgun {
@@ -13,7 +14,7 @@ namespace Shotgun {
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
 

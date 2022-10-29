@@ -5,6 +5,7 @@
 #include "Shotgun/Application.h"
 #include "Shotgun/Layer.h"
 #include "Shotgun/Log.h"
+#include "Shotgun/Core/Timestep.h"
 
 #include "Shotgun/Input.h"
 #include "Shotgun/KeyCodes.h"
