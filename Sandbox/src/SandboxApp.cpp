@@ -170,6 +170,7 @@ public:
 		m_TextureShader = Shotgun::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc);
 
 		m_Texture = Shotgun::Texture2D::Create("assets/textures/Checkerboard.png");
+		m_LogoTexture = Shotgun::Texture2D::Create("assets/textures/ChernoLogo.png");
 
 		std::dynamic_pointer_cast<Shotgun::OpenGLShader>(m_TextureShader)->Bind();
 		std::dynamic_pointer_cast<Shotgun::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
@@ -227,6 +228,8 @@ public:
 		
 		m_Texture->Bind();
 		Shotgun::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.f), glm::vec3(1.5f)));
+		m_LogoTexture->Bind();
+		Shotgun::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.f), glm::vec3(1.5f)));
 		//Shotgun::Renderer::Submit(m_Shader, m_VertexArray);
 		
 		Shotgun::Renderer::EndScene();
@@ -252,6 +255,7 @@ private:
 	Shotgun::Ref<Shotgun::Shader> m_FlatColorShader, m_TextureShader;
 	Shotgun::Ref<Shotgun::VertexArray> m_SquareVA;
 	Shotgun::Ref<Shotgun::Texture2D> m_Texture;
+	Shotgun::Ref<Shotgun::Texture2D> m_LogoTexture;
 
 	Shotgun::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
