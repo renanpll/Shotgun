@@ -25,14 +25,14 @@ public:
 			{ Shotgun::ShaderDataType::Float4, "a_Color" }
 		};
 
-		std::shared_ptr<Shotgun::VertexBuffer> vertexBuffer;
+		Shotgun::Ref<Shotgun::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(Shotgun::VertexBuffer::Create(vertices, sizeof(vertices)));
 
 		vertexBuffer->SetLayout(layout);
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		unsigned int indices[3] = { 0,1,2 };
-		std::shared_ptr<Shotgun::IndexBuffer> indexBuffer;
+		Shotgun::Ref<Shotgun::IndexBuffer> indexBuffer;
 		indexBuffer.reset(Shotgun::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
@@ -45,7 +45,7 @@ public:
 			-0.5f,  0.5f, 0.0f
 		};
 
-		std::shared_ptr<Shotgun::VertexBuffer> squareVB;
+		Shotgun::Ref<Shotgun::VertexBuffer> squareVB;
 		squareVB.reset(Shotgun::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 
 		Shotgun::BufferLayout squareLayout = { { Shotgun::ShaderDataType::Float3, "a_Position" } };
@@ -54,7 +54,7 @@ public:
 		m_SquareVA->AddVertexBuffer(squareVB);
 
 		unsigned int squareIndices[6] = { 0,1,2,2,3,0 };
-		std::shared_ptr<Shotgun::IndexBuffer> squareIndexBuffer;
+		Shotgun::Ref<Shotgun::IndexBuffer> squareIndexBuffer;
 		squareIndexBuffer.reset(Shotgun::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 
 		m_SquareVA->SetIndexBuffer(squareIndexBuffer);
@@ -193,11 +193,11 @@ public:
 
 private:
 
-	std::shared_ptr<Shotgun::Shader> m_Shader;
-	std::shared_ptr<Shotgun::VertexArray> m_VertexArray;
+	Shotgun::Ref<Shotgun::Shader> m_Shader;
+	Shotgun::Ref<Shotgun::VertexArray> m_VertexArray;
 
-	std::shared_ptr<Shotgun::Shader> m_FlatColorShader;
-	std::shared_ptr<Shotgun::VertexArray> m_SquareVA;
+	Shotgun::Ref<Shotgun::Shader> m_FlatColorShader;
+	Shotgun::Ref<Shotgun::VertexArray> m_SquareVA;
 
 	Shotgun::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;

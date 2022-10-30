@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #ifdef SG_PLATFORM_WINDOWS
 	#if SG_DYNAMIC_LINK
 		#ifdef SG_BUILD_DLL
@@ -29,3 +31,12 @@
 #define BIT(x) (1 << x)
 
 #define SG_BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
+
+namespace Shotgun {
+
+	template<typename T>
+	using Scope = std::unique_ptr<T>;
+
+	template<typename T>
+	using Ref = std::shared_ptr<T>;
+}
