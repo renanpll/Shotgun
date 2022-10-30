@@ -16,6 +16,7 @@ IncludeDir["GLFW"] = "Shotgun/vendor/GLFW/include"
 IncludeDir["Glad"] = "Shotgun/vendor/Glad/include"
 IncludeDir["ImGui"] = "Shotgun/vendor/imgui"
 IncludeDir["glm"] = "Shotgun/vendor/glm"
+IncludeDir["stb_image"] = "Shotgun/vendor/stb_image"
 
 group "Dependencies"
 	include "Shotgun/vendor/GLFW"
@@ -39,7 +40,11 @@ project "Shotgun"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/stb_image/**.h",
+		"%{prj.name}/vendor/stb_image/**.cpp",
+		"%{prj.name}/vendor/glm/glm/**.hpp",
+		"%{prj.name}/vendor/glm/glm/**.inl",
 	}
 
 	defines
@@ -54,7 +59,8 @@ project "Shotgun"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}"
 	}
 
 	links 
