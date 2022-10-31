@@ -24,9 +24,17 @@ namespace Shotgun {
 		std::string source = ReadFile(path);
 		auto shaderSources = PreProcess(source);
 		Compile(shaderSources);
+
+		// Extract name from path
+		auto lastSlash = path.find_last_of("/\\");
+		lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
+		auto lastDot = path.rfind('.');
+		auto count = lastDot == std::string::npos ? path.size() - lastSlash : lastDot - lastSlash;
+		m_Name = path.substr(lastSlash, count);
 	}
 
-	OpenGLShader::OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc)
+	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
+		: m_Name(name)
 	{
 		std::unordered_map<GLenum, std::string> sources;
 		sources[GL_VERTEX_SHADER] = vertexSrc;
@@ -95,7 +103,7 @@ namespace Shotgun {
 	std::string OpenGLShader::ReadFile(const std::string& path)
 	{
 		std::string result;
-		std::ifstream in(path, std::ios::in, std::ios::binary);
+		std::ifstream in(path, std::ios::in | std::ios::binary);
 		if (in)
 		{
 			in.seekg(0, std::ios::end);
@@ -136,8 +144,10 @@ namespace Shotgun {
 	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shaderSources)
 	{
 		GLuint program = glCreateProgram();
-		std::vector<GLenum> glShaderIds(shaderSources.size());
+		SG_CORE_ASSERT(shaderSources.size() <= 2, "Three or more shaders in the same file is not supported for now.");
+		std::array<GLenum, 2> glShaderIds;
 
+		int glShaderIDIndex = 0;
 		for (const auto& kv : shaderSources)
 		{
 			GLuint shader = glCreateShader(kv.first);
@@ -165,7 +175,7 @@ namespace Shotgun {
 			}
 
 			glAttachShader(program, shader);
-			glShaderIds.push_back(shader);
+			glShaderIds[glShaderIDIndex++] = shader;
 		}
 
 		glLinkProgram(program);
