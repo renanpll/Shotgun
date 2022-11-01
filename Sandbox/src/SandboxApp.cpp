@@ -11,7 +11,7 @@ class ExampleLayer : public Shotgun::Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f), m_CameraRotation(0.0f)
+		: Layer("Example"), m_CameraController(1280.f / 720.f, true)
 	{
 
 		m_VertexArray = Shotgun::VertexArray::Create();
@@ -147,35 +147,15 @@ public:
 
 	void OnUpdate(Shotgun::Timestep ts) override
 	{
+		// Update
+		m_CameraController.OnUpdate(ts);
 
-		if (Shotgun::Input::IsKeyPressed(SG_KEY_LEFT) || Shotgun::Input::IsKeyPressed(SG_KEY_A))
-			m_CameraPosition.x -= m_CameraSpeed * ts;
-		else if (Shotgun::Input::IsKeyPressed(SG_KEY_RIGHT) || Shotgun::Input::IsKeyPressed(SG_KEY_D))
-			m_CameraPosition.x += m_CameraSpeed * ts;
 
-		if (Shotgun::Input::IsKeyPressed(SG_KEY_UP) || Shotgun::Input::IsKeyPressed(SG_KEY_W))
-			m_CameraPosition.y += m_CameraSpeed * ts;
-		else if (Shotgun::Input::IsKeyPressed(SG_KEY_DOWN) || Shotgun::Input::IsKeyPressed(SG_KEY_S))
-			m_CameraPosition.y -= m_CameraSpeed * ts;
-
-		if (Shotgun::Input::IsKeyPressed(SG_KEY_Q))
-			m_CameraRotation -= m_CameraSpeed * 10 * ts;
-		else if (Shotgun::Input::IsKeyPressed(SG_KEY_E))
-			m_CameraRotation += m_CameraSpeed * 10 * ts;
-
-		if (Shotgun::Input::IsKeyPressed(SG_KEY_SPACE))
-		{
-			m_CameraPosition = glm::vec3(0.0f);
-			m_CameraRotation = 0.0f;
-		}
-
+		//Render
 		Shotgun::RenderCommand::SetClearColor({ 0.1F, 0.1F, 0.1F, 1 });
 		Shotgun::RenderCommand::Clear();
 
-		m_Camera.SetPosition(m_CameraPosition);
-		m_Camera.SetRotation(m_CameraRotation);
-
-		Shotgun::Renderer::BeginScene(m_Camera);
+		Shotgun::Renderer::BeginScene(m_CameraController.GetCamera());
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.f), glm::vec3(0.1f));
 
@@ -205,8 +185,9 @@ public:
 
 	}
 
-	void OnEvent(Shotgun::Event& event) override
+	void OnEvent(Shotgun::Event& e) override
 	{
+		m_CameraController.OnEvent(e);
 	}
 
 	virtual void OnImGuiRender() override
@@ -228,10 +209,7 @@ private:
 
 	Shotgun::ShaderLibrary m_ShaderLibrary;
 
-	Shotgun::OrthographicCamera m_Camera;
-	glm::vec3 m_CameraPosition;
-	float m_CameraRotation;
-	float m_CameraSpeed = 3.f;
+	Shotgun::OrthographicCameraController m_CameraController;
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 
 };

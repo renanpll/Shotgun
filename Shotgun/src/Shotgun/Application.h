@@ -21,7 +21,7 @@ namespace Shotgun
 
 		void Run();
 
-		void OnEvent(Event& event);
+		void OnEvent(Event& e);
 
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);

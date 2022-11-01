@@ -11,6 +11,7 @@
 #include "Shotgun/Input.h"
 #include "Shotgun/KeyCodes.h"
 #include "Shotgun/MouseButtonCodes.h"
+#include "Shotgun/OrthographicCameraController.h"
 
 #include "Shotgun/ImGui/ImGuiLayer.h"
 

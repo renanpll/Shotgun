@@ -24,15 +24,15 @@ namespace Shotgun
 		PushOverlay(m_ImGuiLayer);
 	}
 
-	void Application::OnEvent(Event& event)
+	void Application::OnEvent(Event& e)
 	{
-		EventDispatcher dispatcher(event);
+		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(SG_BIND_EVENT_FN(Application::OnWindowClose));
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
 		{
-			(*--it)->OnEvent(event);
-			if (event.Handled)
+			(*--it)->OnEvent(e);
+			if (e.Handled)
 				break;
 		}
 	}
