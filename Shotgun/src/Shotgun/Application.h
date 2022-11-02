@@ -30,19 +30,18 @@ namespace Shotgun
 		inline Window& GetWindow() { return *m_Window; }
 
 	private:
+		static Application* s_Instance;
 		Scope<Window> m_Window;
 
 		bool m_Running = true;
-		
-		LayerStack m_LayerStack;
-
-		ImGuiLayer* m_ImGuiLayer;
-
+		bool m_Minimized = false;
 		float m_LastFrameTime = 0.0f;
 
-		static Application* s_Instance;
+		LayerStack m_LayerStack;
+		ImGuiLayer* m_ImGuiLayer;
 
 		bool OnWindowClose(WindowCloseEvent);
+		bool OnWindowResize(WindowResizeEvent& e);
 	};
 
 	Application* CreateApplication();
