@@ -2,11 +2,11 @@
 #include "WindowsInput.h"
 
 #include "GLFW/glfw3.h"
-#include "Shotgun/Application.h"
+#include "Shotgun/Core/Application.h"
 
 namespace Shotgun {
 
-	Input* Input::s_Instance = new WindowsInput();
+	Scope<Input> Input::s_Instance = CreateScope<WindowsInput>();
 
 	bool WindowsInput::IsKeyPressedImpl(int keyCode) {
 		

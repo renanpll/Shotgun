@@ -1,8 +1,8 @@
 #include "sgpch.h"
 #include "OrthographicCameraController.h"
 
-#include "Shotgun/Input.h"
-#include "Shotgun/KeyCodes.h"
+#include "Shotgun/Core/Input.h"
+#include "Shotgun/Core/KeyCodes.h"
 
 namespace Shotgun {
 
@@ -15,15 +15,23 @@ namespace Shotgun {
 
 	void OrthographicCameraController::OnUpdate(Timestep ts)
 	{
-		if (Input::IsKeyPressed(SG_KEY_LEFT) || Input::IsKeyPressed(SG_KEY_A))
-			m_CameraPosition.x -= m_CameraTranslationSpeed * ts;
-		else if (Input::IsKeyPressed(SG_KEY_RIGHT) || Input::IsKeyPressed(SG_KEY_D))
-			m_CameraPosition.x += m_CameraTranslationSpeed * ts;
+		if (Input::IsKeyPressed(SG_KEY_LEFT) || Input::IsKeyPressed(SG_KEY_A)) {
+			m_CameraPosition.x -= cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
+			m_CameraPosition.y -= sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
+		}
+		else if (Input::IsKeyPressed(SG_KEY_RIGHT) || Input::IsKeyPressed(SG_KEY_D)) {
+			m_CameraPosition.x += cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
+			m_CameraPosition.y += sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
+		}
 
-		if (Input::IsKeyPressed(SG_KEY_UP) || Input::IsKeyPressed(SG_KEY_W))
-			m_CameraPosition.y += m_CameraTranslationSpeed * ts;
-		else if (Input::IsKeyPressed(SG_KEY_DOWN) || Input::IsKeyPressed(SG_KEY_S))
-			m_CameraPosition.y -= m_CameraTranslationSpeed * ts;
+		if (Input::IsKeyPressed(SG_KEY_UP) || Input::IsKeyPressed(SG_KEY_W)) {
+			m_CameraPosition.x += -sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
+			m_CameraPosition.y += cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
+		}
+		else if (Input::IsKeyPressed(SG_KEY_DOWN) || Input::IsKeyPressed(SG_KEY_S)) {
+			m_CameraPosition.x -= -sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
+			m_CameraPosition.y -= cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
+		}
 
 		if (m_Rotation) {
 			if (Input::IsKeyPressed(SG_KEY_Q))

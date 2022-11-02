@@ -1,7 +1,7 @@
 #include "sgpch.h"
 #include "Application.h"
 
-#include "Shotgun/Input.h"
+#include "Shotgun/Core/Input.h"
 #include "Shotgun/Renderer/Renderer.h"
 
 #include <GLFW/glfw3.h>

@@ -1,5 +1,6 @@
 # Binaries
-bin/
+**/bin/
+!vendor/bin/premake/
 bin-int/
 
 # Visual Studio files and folder
@@ -8,6 +9,3 @@ bin-int/
 **.vcxproj
 **.vcxproj.filters
 **.vcxproj.user
-
-#Files
-*.user

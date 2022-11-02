@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Shotgun/Core.h"
+#include "Shotgun/Core/Core.h"
 
 namespace Shotgun {
 	
@@ -21,6 +21,6 @@ namespace Shotgun {
 		virtual float GetMouseXImpl() = 0;
 
 	private:
-		static Input* s_Instance;
+		static Scope<Input> s_Instance;
 	};
 }

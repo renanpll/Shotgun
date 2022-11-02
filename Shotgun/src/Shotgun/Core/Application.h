@@ -2,14 +2,14 @@
 
 #include "Core.h"
 
-#include "Events/ApplicationEvent.h"
-#include "Events/Event.h"
-#include "Shotgun/LayerStack.h"
+#include "Shotgun/Events/ApplicationEvent.h"
+#include "Shotgun/Events/Event.h"
+#include "Shotgun/Core/LayerStack.h"
 #include "Window.h"
 
 #include "Shotgun/Core/Timestep.h"
 
-#include "ImGui/ImGuiLayer.h"
+#include "Shotgun/ImGui/ImGuiLayer.h"
 
 namespace Shotgun
 {

@@ -1,12 +1,16 @@
 [submodule "Shotgun/vendor/spdlog"]
 	path = Shotgun/vendor/spdlog
 	url = https://github.com/gabime/spdlog
+	branch = v1.x
 [submodule "Shotgun/vendor/GLFW"]
 	path = Shotgun/vendor/GLFW
 	url = https://github.com/renanpll/glfw.git
+	branch = master
 [submodule "Shotgun/vendor/imgui"]
 	path = Shotgun/vendor/imgui
 	url = https://github.com/renanpll/imgui.git
+	branch = docking
 [submodule "Shotgun/vendor/glm"]
 	path = Shotgun/vendor/glm
 	url = https://github.com/g-truc/glm.git
+	branch = master

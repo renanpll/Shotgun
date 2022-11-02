@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Shotgun/Input.h"
+#include "Shotgun/Core/Input.h"
 
 namespace Shotgun {
 

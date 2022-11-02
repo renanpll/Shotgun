@@ -2,7 +2,7 @@
 
 #include "sgpch.h"
 
-#include "Shotgun/Core.h"
+#include "Shotgun/Core/Core.h"
 #include "Shotgun/Events/Event.h"
 
 namespace Shotgun {

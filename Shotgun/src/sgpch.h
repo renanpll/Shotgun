@@ -13,7 +13,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "Shotgun/Log.h"
+#include "Shotgun/Core/Log.h"
 
 #ifdef SG_PLATFORM_WINDOWS
 	#include <Windows.h>

@@ -2,16 +2,16 @@
 
 // For use by Shotgun applications
 
-#include "Shotgun/Application.h"
-#include "Shotgun/Layer.h"
-#include "Shotgun/Log.h"
+#include "Shotgun/Core/Application.h"
+#include "Shotgun/Core/Layer.h"
+#include "Shotgun/Core/Log.h"
 
 #include "Shotgun/Core/Timestep.h"
 
-#include "Shotgun/Input.h"
-#include "Shotgun/KeyCodes.h"
-#include "Shotgun/MouseButtonCodes.h"
-#include "Shotgun/OrthographicCameraController.h"
+#include "Shotgun/Core/Input.h"
+#include "Shotgun/Core/KeyCodes.h"
+#include "Shotgun/Core/MouseButtonCodes.h"
+#include "Shotgun/Renderer/OrthographicCameraController.h"
 
 #include "Shotgun/ImGui/ImGuiLayer.h"
 
@@ -28,5 +28,5 @@
 // -----------------------------------
 
 // ---Entry Point---------------------
-#include "Shotgun/EntryPoint.h"
+#include "Shotgun/Core/EntryPoint.h"
 // -----------------------------------

@@ -6,7 +6,7 @@
 #include "backends/imgui_impl_opengl3.h"
 #include "backends/imgui_impl_glfw.h"
 
-#include "Shotgun/Application.h"
+#include "Shotgun/Core/Application.h"
 
 // To be removed
 #include <GLFW/glfw3.h>

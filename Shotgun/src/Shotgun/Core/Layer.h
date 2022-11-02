@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Shotgun/Core.h"
+#include "Shotgun/Core/Core.h"
 #include "Shotgun/Core/Timestep.h"
 #include "Shotgun/Events/Event.h"
 

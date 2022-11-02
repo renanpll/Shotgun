@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Shotgun/Layer.h"
+#include "Shotgun/Core/Layer.h"
 
 #include "Shotgun/Events/MouseEvent.h"
 #include "Shotgun/Events/KeyEvent.h"

@@ -76,7 +76,6 @@ project "Shotgun"
 
 		defines
 		{
-			"SG_PLATFORM_WINDOWS",
 			"SG_BUILD_DLL",
 			"GLFW_INCLUDE_NONE"
 		}
@@ -127,11 +126,6 @@ project "Sandbox"
 
 	filter "system:windows"
 		systemversion "latest"
-
-		defines
-		{
-			"SG_PLATFORM_WINDOWS"
-		}
 
 	filter "configurations:Debug"
 		defines "SG_DEBUG"
