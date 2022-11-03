@@ -11,7 +11,7 @@ namespace Shotgun {
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::OpenGL:
-			return std::make_shared<OpenGLVertexBuffer>(vertices, size);
+			return CreateRef<OpenGLVertexBuffer>(vertices, size);
 		}
 
 		SG_CORE_ASSERT(false, "Unknown Renderer API.");
@@ -23,7 +23,7 @@ namespace Shotgun {
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::OpenGL:
-				return std::make_shared<OpenGLIndexBuffer>(indices, size);
+				return CreateRef<OpenGLIndexBuffer>(indices, size);
 				int i = 0;
 			}
 

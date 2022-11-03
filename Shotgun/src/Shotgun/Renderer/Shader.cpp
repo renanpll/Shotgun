@@ -14,7 +14,7 @@ namespace Shotgun {
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::OpenGL:
-			return std::make_shared<OpenGLShader>(path);
+			return CreateRef<OpenGLShader>(path);
 		}
 
 		SG_CORE_ASSERT(false, "Unknown Renderer API.");
@@ -26,7 +26,7 @@ namespace Shotgun {
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::OpenGL:
-			return std::make_shared<OpenGLShader>(name, vertexSrc, fragmentSrc);
+			return CreateRef<OpenGLShader>(name, vertexSrc, fragmentSrc);
 		}
 
 		SG_CORE_ASSERT(false, "Unknown Renderer API.");

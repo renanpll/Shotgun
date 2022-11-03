@@ -11,7 +11,7 @@ namespace Shotgun {
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::OpenGL:
-			return std::make_shared<OpenGLVertexArray>();
+			return CreateRef<OpenGLVertexArray>();
 		}
 
 		SG_CORE_ASSERT(false, "Unknown Renderer API.");

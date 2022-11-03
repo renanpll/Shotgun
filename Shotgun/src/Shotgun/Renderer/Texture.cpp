@@ -11,7 +11,7 @@ namespace Shotgun {
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::OpenGL:
-			return std::make_shared<OpenGLTexture2D>(path);
+			return CreateRef<OpenGLTexture2D>(path);
 		}
 
 		SG_CORE_ASSERT(false, "Unknown Renderer API.");

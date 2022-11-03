@@ -26,7 +26,3 @@
 
 #include "Shotgun/Renderer/OrthographicCamera.h"
 // -----------------------------------
-
-// ---Entry Point---------------------
-#include "Shotgun/Core/EntryPoint.h"
-// -----------------------------------
