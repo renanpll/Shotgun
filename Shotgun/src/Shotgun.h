@@ -17,6 +17,7 @@
 
 // ---Renderer------------------------
 #include "Shotgun/Renderer/Renderer.h"
+#include "Shotgun/Renderer/Renderer2D.h"
 #include "Shotgun/Renderer/RenderCommand.h"
 
 #include "Shotgun/Renderer/Buffer.h"
