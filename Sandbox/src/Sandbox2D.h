@@ -22,6 +22,7 @@ namespace Shotgun {
 		// Temporary
 		Shotgun::Ref<Shotgun::VertexArray> m_VertexArray;
 		Shotgun::Ref<Shotgun::Shader> m_FlatColorShader;
+		Shotgun::Ref<Shotgun::Texture2D> m_CheckerboardTexture;
 
 		glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 

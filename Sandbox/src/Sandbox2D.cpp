@@ -13,6 +13,7 @@ namespace Shotgun {
 
 	void Sandbox2D::OnAttach()
 	{
+		m_CheckerboardTexture = Shotgun::Texture2D::Create("assets/textures/Checkerboard.png");
 	}
 
 	void Sandbox2D::OnDetach()
@@ -30,16 +31,10 @@ namespace Shotgun {
 
 		Shotgun::Renderer2D::BeginScene(m_CameraController.GetCamera());
 
-		Shotgun::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, { 0.8f, 0.2f, 0.3f, 1.0f });
-
-		Shotgun::Renderer2D::EndScene();
-
+		Shotgun::Renderer2D::DrawQuad({ -1.f, 0.f }, { 1.0f, 1.0f }, m_SquareColor);
+		Shotgun::Renderer2D::DrawQuad({ 0.f, 0.f, -0.1f }, { 10.0f, 10.0f }, m_CheckerboardTexture);
 
 
-
-		//Shotgun::Renderer::Submit(m_FlatColorShader, m_VertexArray, glm::scale(glm::mat4(1.f), glm::vec3(1.5f)));
-		//std::dynamic_pointer_cast<Shotgun::OpenGLShader>(m_FlatColorShader)->Bind();
-		//std::dynamic_pointer_cast<Shotgun::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat4("u_Color", m_SquareColor);
 	}
 
 	void Sandbox2D::OnImGuiRender()

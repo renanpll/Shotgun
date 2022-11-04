@@ -5,7 +5,7 @@
 #include "Shader.h"
 #include "VertexArray.h"
 
-#include "Platform/OpenGL/OpenGLShader.h"
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace Shotgun {
 
@@ -13,6 +13,7 @@ namespace Shotgun {
 	{
 		Ref<VertexArray> quadVertexArray;
 		Ref<Shader> flatColorShader;
+		Ref<Shader> textureShader;
 	};
 
 	static Renderer2DStorage* s_Data;
@@ -22,10 +23,10 @@ namespace Shotgun {
 		s_Data = new Renderer2DStorage();
 
 		float squareVertices[5 * 4] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f 
 		};
 
 		s_Data->quadVertexArray = Shotgun::VertexArray::Create();
@@ -35,6 +36,7 @@ namespace Shotgun {
 
 		BufferLayout squareLayout = {
 			{ ShaderDataType::Float3, "a_Position" },
+			{ ShaderDataType::Float2, "a_TextCoord" }
 		};
 
 		vertexBuffer->SetLayout(squareLayout);
@@ -48,6 +50,9 @@ namespace Shotgun {
 		s_Data->quadVertexArray->SetIndexBuffer(squareIndexBuffer);
 
 		s_Data->flatColorShader = Shader::Create("assets/shaders/FlatColor.glsl");
+		s_Data->textureShader = Shader::Create("assets/shaders/Texture.glsl");
+		s_Data->textureShader->Bind();
+		s_Data->textureShader->SetInt("u_Texture", 0);
 	}
 
 	void Renderer2D::Shutdown()
@@ -57,9 +62,11 @@ namespace Shotgun {
 
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->flatColorShader)->Bind();
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->flatColorShader)->UploadUniformMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->flatColorShader)->UploadUniformMat4("u_Transform", glm::mat4(1.f));
+		s_Data->flatColorShader->Bind();
+		s_Data->flatColorShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
+
+		s_Data->textureShader->Bind();
+		s_Data->textureShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
 	}
 
 	void Renderer2D::EndScene()
@@ -73,8 +80,29 @@ namespace Shotgun {
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
 	{
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->flatColorShader)->Bind();
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->flatColorShader)->UploadUniformFloat4("u_Color", color);
+		s_Data->flatColorShader->Bind();
+		s_Data->flatColorShader->SetFloat4("u_Color", color);
+
+		glm::mat4 transform = glm::translate(glm::mat4(1.f), position) * glm::scale(glm::mat4(1.f), { size.x, size.y, 1.f });
+		s_Data->flatColorShader->SetMat4("u_Transform", transform);
+
+		s_Data->quadVertexArray->Bind();
+		RenderCommand::DrawIndexed(s_Data->quadVertexArray);
+	}
+
+	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D> texture)
+	{
+		DrawQuad({ position.x, position.y, 0.0f }, size, texture);
+	}
+
+	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D> texture)
+	{
+		s_Data->textureShader->Bind();
+
+		glm::mat4 transform = glm::translate(glm::mat4(1.f), position) * glm::scale(glm::mat4(1.f), { size.x, size.y, 1.f });
+		s_Data->textureShader->SetMat4("u_Transform", transform);
+		
+		texture->Bind();
 
 		s_Data->quadVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_Data->quadVertexArray);
