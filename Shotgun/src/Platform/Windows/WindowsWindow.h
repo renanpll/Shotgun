@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Shotgun/Core/Window.h"
-
 #include "Shotgun/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>

@@ -65,12 +65,6 @@ namespace Shotgun {
 		ImGui::NewFrame();
 	}
 
-	void ImGuiLayer::OnImGuiRender()
-	{
-		static bool show = true;
-		ImGui::ShowDemoWindow(&show);
-	}
-
 	void ImGuiLayer::End()
 	{
 		ImGuiIO& io = ImGui::GetIO();
