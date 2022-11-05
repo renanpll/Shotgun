@@ -12,8 +12,8 @@ namespace Shotgun {
 	struct Renderer2DStorage
 	{
 		Ref<VertexArray> quadVertexArray;
-		Ref<Shader> flatColorShader;
 		Ref<Shader> textureShader;
+		Ref<Texture2D> whiteTexture;
 	};
 
 	static Renderer2DStorage* s_Data;
@@ -49,7 +49,10 @@ namespace Shotgun {
 
 		s_Data->quadVertexArray->SetIndexBuffer(squareIndexBuffer);
 
-		s_Data->flatColorShader = Shader::Create("assets/shaders/FlatColor.glsl");
+		s_Data->whiteTexture = Texture2D::Create(1, 1);
+		uint32_t whiteTextureData = 0xffffffff;
+		s_Data->whiteTexture->SetData(&whiteTextureData, sizeof(uint32_t));
+
 		s_Data->textureShader = Shader::Create("assets/shaders/Texture.glsl");
 		s_Data->textureShader->Bind();
 		s_Data->textureShader->SetInt("u_Texture", 0);
@@ -62,9 +65,6 @@ namespace Shotgun {
 
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
-		s_Data->flatColorShader->Bind();
-		s_Data->flatColorShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
-
 		s_Data->textureShader->Bind();
 		s_Data->textureShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
 	}
@@ -80,11 +80,11 @@ namespace Shotgun {
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
 	{
-		s_Data->flatColorShader->Bind();
-		s_Data->flatColorShader->SetFloat4("u_Color", color);
+		s_Data->textureShader->SetFloat4("u_Color", color);
+		s_Data->whiteTexture->Bind();
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.f), position) * glm::scale(glm::mat4(1.f), { size.x, size.y, 1.f });
-		s_Data->flatColorShader->SetMat4("u_Transform", transform);
+		s_Data->textureShader->SetMat4("u_Transform", transform);
 
 		s_Data->quadVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_Data->quadVertexArray);
@@ -97,13 +97,12 @@ namespace Shotgun {
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D> texture)
 	{
-		s_Data->textureShader->Bind();
-
+		s_Data->textureShader->SetFloat4("u_Color", glm::vec4(1.0f));
+		texture->Bind();
+		
 		glm::mat4 transform = glm::translate(glm::mat4(1.f), position) * glm::scale(glm::mat4(1.f), { size.x, size.y, 1.f });
 		s_Data->textureShader->SetMat4("u_Transform", transform);
 		
-		texture->Bind();
-
 		s_Data->quadVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_Data->quadVertexArray);
 	}
