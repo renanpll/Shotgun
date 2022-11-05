@@ -1,11 +1,12 @@
 #pragma once
 
 #include "Core.h"
-#include "spdlog/spdlog.h"
-#include "spdlog/fmt/ostr.h"
+
+#include <spdlog/spdlog.h>
+#include <spdlog/fmt/ostr.h>
 
 namespace Shotgun {
-	class SHOTGUN_API Log
+	class Log
 	{
 	public:
 		static void Init();

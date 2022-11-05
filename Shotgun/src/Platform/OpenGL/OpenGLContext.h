@@ -6,10 +6,10 @@ struct GLFWwindow;
 
 namespace Shotgun {
 
-	class OpenGlContext : public GraphicsContext
+	class OpenGLContext : public GraphicsContext
 	{
 	public:
-		OpenGlContext(GLFWwindow* windowHandle);
+		OpenGLContext(GLFWwindow* windowHandle);
 
 		virtual void Init() override;
 		virtual void SwapBuffers() override;

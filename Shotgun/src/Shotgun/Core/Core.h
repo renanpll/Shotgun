@@ -43,22 +43,6 @@
 	#error "Unknown platform!"
 #endif // End of platform detection
 
-
-// DLL support
-#ifdef SG_PLATFORM_WINDOWS
-	#if SG_DYNAMIC_LINK
-		#ifdef SG_BUILD_DLL
-			#define SHOTGUN_API __declspec(dllexport)
-		#else
-			#define SHOTGUN_API __declspec(dllimport)
-		#endif
-	#else
-		#define SHOTGUN_API
-	#endif
-#else
-	#error Shotgun only supports Windows!
-#endif // End of DLL support
-
 #ifdef SG_DEBUG
 	#define SG_ENABLE_ASSERTS 1
 #endif

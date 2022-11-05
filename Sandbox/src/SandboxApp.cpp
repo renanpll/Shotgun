@@ -1,7 +1,7 @@
 #include <Shotgun.h>
 #include <Shotgun/Core/EntryPoint.h>
 
-#include "imgui/imgui.h"
+#include <imgui/imgui.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
@@ -28,8 +28,7 @@ public:
 			{ Shotgun::ShaderDataType::Float4, "a_Color" }
 		};
 
-		Shotgun::Ref<Shotgun::VertexBuffer> vertexBuffer;
-		vertexBuffer = Shotgun::VertexBuffer::Create(vertices, sizeof(vertices));
+		Shotgun::Ref<Shotgun::VertexBuffer> vertexBuffer = Shotgun::VertexBuffer::Create(vertices, sizeof(vertices));
 
 		vertexBuffer->SetLayout(layout);
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
@@ -48,8 +47,7 @@ public:
 			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
-		Shotgun::Ref<Shotgun::VertexBuffer> squareVB;
-		squareVB = Shotgun::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
+		Shotgun::Ref<Shotgun::VertexBuffer> squareVB = Shotgun::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
 
 		Shotgun::BufferLayout squareLayout = {
 			{ Shotgun::ShaderDataType::Float3, "a_Position" },
@@ -60,8 +58,8 @@ public:
 		m_SquareVA->AddVertexBuffer(squareVB);
 
 		unsigned int squareIndices[6] = { 0,1,2,2,3,0 };
-		Shotgun::Ref<Shotgun::IndexBuffer> squareIndexBuffer;
-		squareIndexBuffer = Shotgun::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
+
+		Shotgun::Ref<Shotgun::IndexBuffer> squareIndexBuffer = Shotgun::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
 
 		m_SquareVA->SetIndexBuffer(squareIndexBuffer);
 

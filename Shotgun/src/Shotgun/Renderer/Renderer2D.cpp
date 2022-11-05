@@ -31,8 +31,7 @@ namespace Shotgun {
 
 		s_Data->quadVertexArray = Shotgun::VertexArray::Create();
 
-		Ref<VertexBuffer> vertexBuffer;
-		vertexBuffer = VertexBuffer::Create(squareVertices, sizeof(squareVertices));
+		Ref<VertexBuffer> vertexBuffer = VertexBuffer::Create(squareVertices, sizeof(squareVertices));
 
 		BufferLayout squareLayout = {
 			{ ShaderDataType::Float3, "a_Position" },
@@ -44,8 +43,7 @@ namespace Shotgun {
 		s_Data->quadVertexArray->AddVertexBuffer(vertexBuffer);
 
 		unsigned int squareIndices[6] = { 0,1,2,2,3,0 };
-		Ref<IndexBuffer> squareIndexBuffer;
-		squareIndexBuffer = IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
+		Ref<IndexBuffer> squareIndexBuffer = IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
 
 		s_Data->quadVertexArray->SetIndexBuffer(squareIndexBuffer);
 

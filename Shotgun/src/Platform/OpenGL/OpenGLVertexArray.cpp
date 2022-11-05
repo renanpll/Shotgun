@@ -10,17 +10,17 @@ namespace Shotgun {
 	{
 		switch (type)
 		{
-		case Shotgun::ShaderDataType::Float:    return GL_FLOAT;
-		case Shotgun::ShaderDataType::Float2:   return GL_FLOAT;
-		case Shotgun::ShaderDataType::Float3:   return GL_FLOAT;
-		case Shotgun::ShaderDataType::Float4:   return GL_FLOAT;
-		case Shotgun::ShaderDataType::Mat3:     return GL_FLOAT;
-		case Shotgun::ShaderDataType::Mat4:     return GL_FLOAT;
-		case Shotgun::ShaderDataType::Int:      return GL_INT;
-		case Shotgun::ShaderDataType::Int2:     return GL_INT;
-		case Shotgun::ShaderDataType::Int3:     return GL_INT;
-		case Shotgun::ShaderDataType::Int4:     return GL_INT;
-		case Shotgun::ShaderDataType::Bool:     return GL_BOOL;
+		case ShaderDataType::Float:    return GL_FLOAT;
+		case ShaderDataType::Float2:   return GL_FLOAT;
+		case ShaderDataType::Float3:   return GL_FLOAT;
+		case ShaderDataType::Float4:   return GL_FLOAT;
+		case ShaderDataType::Mat3:     return GL_FLOAT;
+		case ShaderDataType::Mat4:     return GL_FLOAT;
+		case ShaderDataType::Int:      return GL_INT;
+		case ShaderDataType::Int2:     return GL_INT;
+		case ShaderDataType::Int3:     return GL_INT;
+		case ShaderDataType::Int4:     return GL_INT;
+		case ShaderDataType::Bool:     return GL_BOOL;
 		}
 
 		SG_CORE_ASSERT(false, "Unknown ShaderDataType!");

@@ -1,6 +1,7 @@
 #pragma once
 
 // For use by Shotgun applications
+#include "Shotgun/Core/Core.h"
 
 #include "Shotgun/Core/Application.h"
 #include "Shotgun/Core/Layer.h"
@@ -8,6 +9,7 @@
 
 #include "Shotgun/Core/Timestep.h"
 
+// ---Input management----------------
 #include "Shotgun/Core/Input.h"
 #include "Shotgun/Core/KeyCodes.h"
 #include "Shotgun/Core/MouseButtonCodes.h"
@@ -26,4 +28,3 @@
 #include "Shotgun/Renderer/VertexArray.h"
 
 #include "Shotgun/Renderer/OrthographicCamera.h"
-// -----------------------------------

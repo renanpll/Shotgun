@@ -6,13 +6,13 @@
 
 namespace Shotgun {
 
-	OpenGlContext::OpenGlContext(GLFWwindow* windowHandle)
+	OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
 		:m_windowHandle(windowHandle)
 	{
 		SG_CORE_ASSERT(windowHandle, "Window handle is null.");
 	}
 
-	void OpenGlContext::Init()
+	void OpenGLContext::Init()
 	{
 		glfwMakeContextCurrent(m_windowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
@@ -31,7 +31,7 @@ namespace Shotgun {
 		SG_CORE_ASSERT(versionMajor > 4 || (versionMajor == 4 && versionMinor >= 5), "Shotgun requires at least OpenGL version 4.5!");
 
 	}
-	void OpenGlContext::SwapBuffers()
+	void OpenGLContext::SwapBuffers()
 	{
 		glfwSwapBuffers(m_windowHandle);
 	}
