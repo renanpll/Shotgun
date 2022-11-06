@@ -1,27 +1,29 @@
 #pragma once
 
 #include "Event.h"
+#include "Shotgun/Core/Input.h"
 
 namespace Shotgun {
 
 	class KeyEvent : public Event
 	{
 	public:
-		inline int GetKeyCode() const { return m_KeyCode; }
+		inline KeyCode GetKeyCode() const { return m_KeyCode; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
-	protected:
-		KeyEvent(int keycode)
-			: m_KeyCode(keycode) {}
 
-		int m_KeyCode;
+	protected:
+		KeyEvent(KeyCode key)
+			: m_KeyCode(key) {}
+
+		KeyCode m_KeyCode;
 	};
 
 	class KeyPressedEvent : public KeyEvent
 	{
 	public:
-		KeyPressedEvent(int keycode, int repeatCount)
-			: KeyEvent(keycode), m_RepeatCount(repeatCount) {}
+		KeyPressedEvent(KeyCode key, int repeatCount)
+			: KeyEvent(key), m_RepeatCount(repeatCount) {}
 
 		inline int GetRepeatCount() const { return m_RepeatCount; }
 
@@ -40,8 +42,8 @@ namespace Shotgun {
 	class KeyReleasedEvent : public KeyEvent
 	{
 	public:
-		KeyReleasedEvent(int keycode)
-			: KeyEvent(keycode) {}
+		KeyReleasedEvent(KeyCode key)
+			: KeyEvent(key) {}
 
 		std::string ToString() const override
 		{
@@ -56,8 +58,8 @@ namespace Shotgun {
 	class KeyTypedEvent : public KeyEvent
 	{
 	public:
-		KeyTypedEvent(int keycode)
-			: KeyEvent(keycode) {}
+		KeyTypedEvent(KeyCode key)
+			: KeyEvent(key) {}
 
 		std::string ToString() const override
 		{

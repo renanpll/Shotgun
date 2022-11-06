@@ -8,8 +8,8 @@ namespace Shotgun {
 	{
 
 	protected:
-		virtual bool IsKeyPressedImpl(int keyCode) override;
-		virtual bool IsMouseButtonPressedImpl(int button) override;
+		virtual bool IsKeyPressedImpl(KeyCode key) override;
+		virtual bool IsMouseButtonPressedImpl(MouseCode button) override;
 		virtual std::pair<float, float> GetMousePosImpl() override;
 		virtual float GetMouseYImpl() override;
 		virtual float GetMouseXImpl() override;

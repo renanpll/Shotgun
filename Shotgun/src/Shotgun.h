@@ -12,7 +12,7 @@
 // ---Input management----------------
 #include "Shotgun/Core/Input.h"
 #include "Shotgun/Core/KeyCodes.h"
-#include "Shotgun/Core/MouseButtonCodes.h"
+#include "Shotgun/Core/MouseCodes.h"
 #include "Shotgun/Renderer/OrthographicCameraController.h"
 
 #include "Shotgun/ImGui/ImGuiLayer.h"
