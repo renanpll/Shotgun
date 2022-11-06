@@ -15,6 +15,8 @@
 
 #include "Shotgun/Core/Log.h"
 
+#include "Shotgun/Debug/Instrumentor.h"
+
 #ifdef SG_PLATFORM_WINDOWS
 	#include <Windows.h>
 #endif

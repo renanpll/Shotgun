@@ -21,6 +21,8 @@ namespace Shotgun {
 
 	OpenGLShader::OpenGLShader(const std::string& path)
 	{
+		SG_PROFILE_FUNCTION();
+
 		std::string source = ReadFile(path);
 		auto shaderSources = PreProcess(source);
 		Compile(shaderSources);
@@ -36,6 +38,8 @@ namespace Shotgun {
 	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
 		: m_Name(name)
 	{
+		SG_PROFILE_FUNCTION();
+
 		std::unordered_map<GLenum, std::string> sources;
 		sources[GL_VERTEX_SHADER] = vertexSrc;
 		sources[GL_FRAGMENT_SHADER] = fragmentSrc;
@@ -45,37 +49,51 @@ namespace Shotgun {
 
 	OpenGLShader::~OpenGLShader()
 	{
+		SG_PROFILE_FUNCTION();
+
 		glDeleteProgram(m_RendererID);
 	}
 
 	void OpenGLShader::Bind() const
 	{
+		SG_PROFILE_FUNCTION();
+
 		glUseProgram(m_RendererID);
 	}
 
 	void OpenGLShader::Unbind() const
 	{
-		glUseProgram(0);
-	}
+		SG_PROFILE_FUNCTION();
 
-	void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& value)
-	{
-		UploadUniformMat4(name, value);
+		glUseProgram(0);
 	}
 
 	void OpenGLShader::SetInt(const std::string& name, const int value)
 	{
+		SG_PROFILE_FUNCTION();
+
 		UploadUniformInt(name, value);
 	}
 
 	void OpenGLShader::SetFloat3(const std::string& name, const glm::vec3& value)
 	{
+		SG_PROFILE_FUNCTION();
+
 		UploadUniformFloat3(name, value);
 	}
 
 	void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& value)
 	{
+		SG_PROFILE_FUNCTION();
+
 		UploadUniformFloat4(name, value);
+	}
+
+	void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& value)
+	{
+		SG_PROFILE_FUNCTION();
+
+		UploadUniformMat4(name, value);
 	}
 
 	void OpenGLShader::UploadUniformInt(const std::string& name, const int value)
@@ -122,6 +140,8 @@ namespace Shotgun {
 
 	std::string OpenGLShader::ReadFile(const std::string& path)
 	{
+		SG_PROFILE_FUNCTION();
+
 		std::string result;
 		std::ifstream in(path, std::ios::in | std::ios::binary);
 		if (in)
@@ -146,6 +166,8 @@ namespace Shotgun {
 
 	std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::string& source)
 	{
+		SG_PROFILE_FUNCTION();
+
 		std::unordered_map<GLenum, std::string> shaderSources;
 
 		const char* typeToken = "#type";
@@ -171,6 +193,8 @@ namespace Shotgun {
 
 	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shaderSources)
 	{
+		SG_PROFILE_FUNCTION();
+
 		GLuint program = glCreateProgram();
 		SG_CORE_ASSERT(shaderSources.size() <= 2, "Three or more shaders in the same file is not supported for now.");
 		std::array<GLenum, 2> glShaderIds;

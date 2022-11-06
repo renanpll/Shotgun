@@ -14,6 +14,8 @@ namespace Shotgun {
 
 	void OpenGLContext::Init()
 	{
+		SG_PROFILE_FUNCTION();
+
 		glfwMakeContextCurrent(m_windowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		SG_CORE_ASSERT(status, "Failed to initialize Glad.");
@@ -33,6 +35,8 @@ namespace Shotgun {
 	}
 	void OpenGLContext::SwapBuffers()
 	{
+		SG_PROFILE_FUNCTION();
+
 		glfwSwapBuffers(m_windowHandle);
 	}
 }

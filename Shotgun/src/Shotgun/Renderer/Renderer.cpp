@@ -8,6 +8,8 @@ namespace Shotgun {
 
 	void Renderer::Init()
 	{
+		SG_PROFILE_FUNCTION();
+
 		RenderCommand::Init();
 		Renderer2D::Init();
 	}

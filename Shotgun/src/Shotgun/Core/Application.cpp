@@ -12,6 +12,8 @@ namespace Shotgun
 
 	Application::Application()
 	{
+		SG_PROFILE_FUNCTION();
+
 		SG_CORE_ASSERT(!s_Instance, "Application already exists.")
 		s_Instance = this;
 
@@ -26,11 +28,15 @@ namespace Shotgun
 
 	Application::~Application()
 	{
-		//Renderer::Shutdown();
+		SG_PROFILE_FUNCTION();
+
+		Renderer::Shutdown();
 	}
 
 	void Application::OnEvent(Event& e)
 	{
+		SG_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(SG_BIND_EVENT_FN(Application::OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(SG_BIND_EVENT_FN(Application::OnWindowResize));
@@ -45,30 +51,47 @@ namespace Shotgun
 
 	void Application::PushLayer(Layer* layer)
 	{
+		SG_PROFILE_FUNCTION();
+
 		m_LayerStack.PushLayer(layer);
+		layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* overlay)
 	{
+		SG_PROFILE_FUNCTION();
+
 		m_LayerStack.PushOverlay(overlay);
+		overlay->OnAttach();
 	}
 
 	void Application::Run()
 	{
+		SG_PROFILE_FUNCTION();
+
 		while (m_Running)
 		{
+			SG_PROFILE_SCOPE("Run Loop");
 			float time = (float)glfwGetTime(); // Temporary - move to platform
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
 			if (!m_Minimized) {
-				for (Layer* layer : m_LayerStack)
-					layer->OnUpdate(timestep);
+				{
+					SG_PROFILE_SCOPE("LayerStack OnUpdate");
+
+					for (Layer* layer : m_LayerStack)
+						layer->OnUpdate(timestep);
+				}
 			}
 
 			m_ImGuiLayer->Begin();
-			for (Layer* layer : m_LayerStack)
-				layer->OnImGuiRender();
+			{
+				SG_PROFILE_SCOPE("LayerStack OnImGuiRenderer");
+
+				for (Layer* layer : m_LayerStack)
+					layer->OnImGuiRender();
+			}
 			m_ImGuiLayer->End();
 
 			m_Window->OnUpdate();
@@ -82,6 +105,8 @@ namespace Shotgun
 	}
 	bool Application::OnWindowResize(WindowResizeEvent& e)
 	{
+		SG_PROFILE_FUNCTION();
+
 		if (e.GetWidth() == 0 || e.GetHeight() == 0)
 		{
 			m_Minimized = true;
