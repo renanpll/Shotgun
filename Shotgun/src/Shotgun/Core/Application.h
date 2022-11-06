@@ -11,6 +11,8 @@
 
 #include "Shotgun/ImGui/ImGuiLayer.h"
 
+int main(int argc, char** argv);
+
 namespace Shotgun
 {
 	class Application
@@ -19,8 +21,6 @@ namespace Shotgun
 		Application();
 		virtual ~Application();
 
-		void Run();
-
 		void OnEvent(Event& e);
 
 		void PushLayer(Layer* layer);
@@ -28,6 +28,12 @@ namespace Shotgun
 
 		inline static Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
+
+	private:
+		void Run();
+
+		bool OnWindowClose(WindowCloseEvent);
+		bool OnWindowResize(WindowResizeEvent& e);
 
 	private:
 		static Application* s_Instance;
@@ -40,8 +46,7 @@ namespace Shotgun
 		LayerStack m_LayerStack;
 		ImGuiLayer* m_ImGuiLayer;
 
-		bool OnWindowClose(WindowCloseEvent);
-		bool OnWindowResize(WindowResizeEvent& e);
+		friend int ::main(int argc, char** argv);
 	};
 
 	Application* CreateApplication();

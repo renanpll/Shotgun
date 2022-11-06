@@ -12,3 +12,6 @@ bin-int/
 
 # Profiling results
 **.json
+
+# Shotgun files
+*.log
