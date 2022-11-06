@@ -42,9 +42,14 @@ namespace Shotgun {
 		{
 			SG_PROFILE_SCOPE("Renderer Draw");
 			Renderer2D::BeginScene(m_CameraController.GetCamera());
-			Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, m_SquareColor);
-			Renderer2D::DrawRotatedQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, glm::radians(45.f), { 0.8f, 0.2f, 0.3f, 1.0f });
-			Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, m_CheckerboardTexture, 10.0f, glm::vec4(0.4f, 0.2f, 0.2f, 0.5f));
+			Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.3f, 0.3f }, m_SquareColor);
+			Renderer2D::DrawQuad({ -0.6f, 0.0f }, { 0.3f, 0.3f }, m_SquareColor);
+			Renderer2D::DrawQuad({ -0.2f, 0.0f }, { 0.3f, 0.3f }, m_SquareColor);
+			Renderer2D::DrawQuad({ 0.2f, 0.0f }, { 0.3f, 0.3f }, m_SquareColor);
+			Renderer2D::DrawQuad({ 0.6f, 0.0f }, { 0.3f, 0.3f }, m_SquareColor);
+			Renderer2D::DrawQuad({ 1.0f, 0.0f }, { 0.3f, 0.3f }, m_SquareColor);
+			//Renderer2D::DrawRotatedQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, glm::radians(45.f), { 0.8f, 0.2f, 0.3f, 1.0f });
+			//Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, m_CheckerboardTexture, 10.0f, glm::vec4(0.4f, 0.2f, 0.2f, 0.5f));
 			Renderer2D::EndScene();
 		}
 	}
