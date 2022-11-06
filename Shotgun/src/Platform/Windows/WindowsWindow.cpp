@@ -52,7 +52,7 @@ namespace Shotgun {
 			SG_PROFILE_SCOPE("glfwInit");
 
 			int success = glfwInit();
-			SG_CORE_ASSERT(success, "Could not intialize GLFW!");
+			SG_CORE_ASSERT(success, "Could not initialize GLFW!");
 
 			glfwSetErrorCallback(GLFWErrorCallback);
 		}
