@@ -24,8 +24,9 @@ namespace Shotgun {
 		Shotgun::Ref<Shotgun::Shader> m_FlatColorShader;
 		Shotgun::Ref<Shotgun::Texture2D> m_CheckerboardTexture;
 		Shotgun::Ref<Shotgun::Texture2D> m_ChernoLogoTexture;
+		Shotgun::Ref<Shotgun::Texture2D> m_SpriteSheet;
 
-		glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
+		glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 0.7f };
 
 	};
 }

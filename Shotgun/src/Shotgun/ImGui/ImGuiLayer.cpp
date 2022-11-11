@@ -62,6 +62,15 @@ namespace Shotgun {
 		ImGui::DestroyContext();
 	}
 
+	void ImGuiLayer::OnEvent(Event& e)
+	{
+		SG_PROFILE_FUNCTION();
+
+		ImGuiIO& io = ImGui::GetIO();
+		e.Handled |= e.IsInCategory(EventCategoryMouse) & io.WantCaptureMouse;
+		e.Handled |= e.IsInCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
+	}
+
 	void ImGuiLayer::Begin()
 	{
 		SG_PROFILE_FUNCTION();

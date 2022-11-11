@@ -18,6 +18,7 @@ namespace Shotgun {
 
 		m_CheckerboardTexture = Shotgun::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_ChernoLogoTexture = Texture2D::Create("assets/textures/ChernoLogo.png");
+		m_SpriteSheet = Texture2D::Create("assets/textures/RPGpack_sheet_2X.png");
 	}
 
 	void Sandbox2D::OnDetach()
