@@ -21,6 +21,8 @@ namespace Shotgun {
 
 		Ref<VertexArray> m_VertexArray;
 		Ref<Shader> m_FlatColorShader;
+		Ref<FrameBuffer> m_FrameBuffer;
+
 		Ref<Texture2D> m_CheckerboardTexture;
 		Ref<Texture2D> m_ChernoLogoTexture;
 		Ref<Texture2D> m_SpriteSheet;

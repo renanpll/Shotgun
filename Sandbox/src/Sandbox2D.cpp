@@ -22,6 +22,12 @@ namespace Shotgun {
 
 		m_TextureStairs = SubTexture2D::CreateFromCoords(m_SpriteSheet, { 7, 6 }, { 128, 128 });
 		m_TextureTree = SubTexture2D::CreateFromCoords(m_SpriteSheet, { 2, 1 }, { 128, 128 }, {1, 2});
+
+		FrameBufferSpecification spec;
+		spec.Width = 1280;
+		spec.Height = 720;
+
+		m_FrameBuffer = FrameBuffer::Create(spec);
 	}
 
 	void Sandbox2D::OnDetach()
@@ -41,6 +47,9 @@ namespace Shotgun {
 		Renderer2D::ResetStats();
 		{
 			SG_PROFILE_SCOPE("Renderer Prep");
+
+			m_FrameBuffer->Bind();
+			
 			RenderCommand::SetClearColor({ 0.1F, 0.1F, 0.1F, 1 });
 			RenderCommand::Clear();
 		}
@@ -75,6 +84,7 @@ namespace Shotgun {
 
 			Renderer2D::EndScene();
 
+			m_FrameBuffer->UnBind();
 		}
 	}
 
@@ -156,8 +166,8 @@ namespace Shotgun {
 
 			ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
 
-			uint32_t textureID = m_CheckerboardTexture->GetRendererID();
-			ImGui::Image((void*)textureID, ImVec2{ 256.0f, 256.0f });
+			uint32_t textureID = m_FrameBuffer->GetColorAttachmentRendererID();
+			ImGui::Image((void*)textureID, ImVec2{ 1280.0f, 720.0f });
 			ImGui::End();
 
 			ImGui::End();
@@ -175,8 +185,8 @@ namespace Shotgun {
 
 			ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
 
-			uint32_t textureID = m_CheckerboardTexture->GetRendererID();
-			ImGui::Image((void*)textureID, ImVec2{ 256.0f, 256.0f });
+			uint32_t textureID = m_FrameBuffer->GetColorAttachmentRendererID();
+			ImGui::Image((void*)textureID, ImVec2{ 320.0f, 180.0f });
 			ImGui::End();
 		}
 	}
