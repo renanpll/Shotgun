@@ -19,6 +19,9 @@ namespace Shotgun {
 		m_CheckerboardTexture = Shotgun::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_ChernoLogoTexture = Texture2D::Create("assets/textures/ChernoLogo.png");
 		m_SpriteSheet = Texture2D::Create("assets/textures/RPGpack_sheet_2X.png");
+
+		m_TextureStairs = SubTexture2D::CreateFromCoords(m_SpriteSheet, { 7, 6 }, { 128, 128 });
+		m_TextureTree = SubTexture2D::CreateFromCoords(m_SpriteSheet, { 2, 1 }, { 128, 128 }, {1, 2});
 	}
 
 	void Sandbox2D::OnDetach()
@@ -59,8 +62,8 @@ namespace Shotgun {
 					Renderer2D::DrawQuad({ x, y, 0.f }, { 0.45f, 0.45f }, color);
 				}
 			}
-			Renderer2D::DrawQuad({ -1.0f, 0.0f, 0.1f }, { 0.3f, 0.3f }, m_SquareColor);
-			Renderer2D::DrawRotatedQuad({ -0.6f, 0.0f , 0.1f}, { 0.3f, 0.3f }, glm::radians(rotation), m_ChernoLogoTexture);
+			Renderer2D::DrawQuad({ -1.0f, 0.0f, 0.1f }, { 0.3f, 0.3f }, m_TextureStairs);
+			Renderer2D::DrawRotatedQuad({ -0.6f, 0.0f , 0.1f}, { 0.3f, 0.6f }, glm::radians(rotation), m_TextureTree, 1.f, glm::vec4(0.5f));
 			Renderer2D::DrawQuad({ -0.2f, 0.0f, 0.1f }, { 0.3f, 0.3f }, m_SquareColor);
 			Renderer2D::DrawRotatedQuad({ 0.2f, 0.0f, 0.1f }, { 0.3f, 0.3f }, glm::radians(rotation), m_SquareColor);
 			Renderer2D::DrawQuad({ 0.6f, 0.0f, 0.1f }, { 0.3f, 0.3f }, m_SquareColor);

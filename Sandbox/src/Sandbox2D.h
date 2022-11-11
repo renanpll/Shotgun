@@ -19,12 +19,13 @@ namespace Shotgun {
 	private:
 		Shotgun::OrthographicCameraController m_CameraController;
 
-		// Temporary
-		Shotgun::Ref<Shotgun::VertexArray> m_VertexArray;
-		Shotgun::Ref<Shotgun::Shader> m_FlatColorShader;
-		Shotgun::Ref<Shotgun::Texture2D> m_CheckerboardTexture;
-		Shotgun::Ref<Shotgun::Texture2D> m_ChernoLogoTexture;
-		Shotgun::Ref<Shotgun::Texture2D> m_SpriteSheet;
+		Ref<VertexArray> m_VertexArray;
+		Ref<Shader> m_FlatColorShader;
+		Ref<Texture2D> m_CheckerboardTexture;
+		Ref<Texture2D> m_ChernoLogoTexture;
+		Ref<Texture2D> m_SpriteSheet;
+		Ref<SubTexture2D> m_TextureStairs;
+		Ref<SubTexture2D> m_TextureTree;
 
 		glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 0.7f };
 

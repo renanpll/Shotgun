@@ -25,6 +25,7 @@
 #include "Shotgun/Renderer/Buffer.h"
 #include "Shotgun/Renderer/Shader.h"
 #include "Shotgun/Renderer/Texture.h"
+#include "Shotgun/Renderer/SubTexture2D.h"
 #include "Shotgun/Renderer/VertexArray.h"
 
 #include "Shotgun/Renderer/OrthographicCamera.h"
