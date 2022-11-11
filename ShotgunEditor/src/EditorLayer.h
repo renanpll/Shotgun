@@ -3,11 +3,11 @@
 
 namespace Shotgun {
 
-	class Sandbox2D : public Shotgun::Layer
+	class EditorLayer : public Shotgun::Layer
 	{
 	public:
-		Sandbox2D();
-		virtual ~Sandbox2D() = default;
+		EditorLayer();
+		virtual ~EditorLayer() = default;
 
 		virtual void OnAttach() override;
 		virtual void OnDetach() override;
@@ -21,6 +21,7 @@ namespace Shotgun {
 
 		Ref<VertexArray> m_VertexArray;
 		Ref<Shader> m_FlatColorShader;
+		Ref<FrameBuffer> m_FrameBuffer;
 
 		Ref<Texture2D> m_CheckerboardTexture;
 		Ref<Texture2D> m_ChernoLogoTexture;

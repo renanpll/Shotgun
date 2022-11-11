@@ -25,6 +25,8 @@ group "Dependencies"
 	include "Shotgun/vendor/imgui"
 group ""
 
+--------------------------------------------------------------------------------------------
+
 project "Shotgun"
 	location "Shotgun"
 	kind "StaticLib"
@@ -95,6 +97,57 @@ project "Shotgun"
 		defines "SG_Dist"
 		runtime "Release"
 		optimize "on"
+
+--------------------------------------------------------------------------------------------
+
+project "ShotgunEditor"
+	location "ShotgunEditor"
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
+
+	targetdir ("bin/" .. outputDir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
+
+	files
+	{
+		"%{prj.name}/src/**.h",
+		"%{prj.name}/src/**.cpp"
+	}
+
+	includedirs
+	{
+		"Shotgun/vendor/spdlog/include",
+		"Shotgun/src",
+		"Shotgun/vendor",
+		"%{IncludeDir.glm}"
+	}
+
+	links
+	{
+		"Shotgun"
+	}
+
+	filter "system:windows"
+		systemversion "latest"
+
+	filter "configurations:Debug"
+		defines "SG_DEBUG"
+		runtime "Debug"
+		symbols "on"
+
+	filter "configurations:Release"
+		defines "SG_Release"
+		runtime "Release"
+		optimize "on"
+
+	filter "configurations:Dist"
+		defines "SG_Dist"
+		runtime "Release"
+		optimize "on"
+
+--------------------------------------------------------------------------------------------
 
 project "Sandbox"
 	location "Sandbox"
