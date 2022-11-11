@@ -1,14 +1,12 @@
 #include "sgpch.h"
-#include "WindowsInput.h"
+#include "Shotgun/Core/Input.h"
 
 #include "GLFW/glfw3.h"
 #include "Shotgun/Core/Application.h"
 
 namespace Shotgun {
 
-	Scope<Input> Input::s_Instance = CreateScope<WindowsInput>();
-
-	bool WindowsInput::IsKeyPressedImpl(KeyCode key) {
+	bool Input::IsKeyPressed(KeyCode key) {
 		
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		auto state = glfwGetKey(window, static_cast<int32_t>(key));
@@ -16,7 +14,7 @@ namespace Shotgun {
 		return state == GLFW_PRESS || state == GLFW_REPEAT;
 	}
 
-	bool WindowsInput::IsMouseButtonPressedImpl(MouseCode button) {
+	bool Input::IsMouseButtonPressed(MouseCode button) {
 
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		auto state = glfwGetMouseButton(window, static_cast<int32_t>(button));
@@ -24,7 +22,7 @@ namespace Shotgun {
 		return state == GLFW_PRESS;
 	}
 
-	std::pair<float, float> WindowsInput::GetMousePosImpl() {
+	std::pair<float, float> Input::GetMousePosition() {
 
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		double xPos, yPos;
@@ -33,15 +31,15 @@ namespace Shotgun {
 		return { (float)xPos, (float)yPos };
 	}
 
-	float WindowsInput::GetMouseYImpl() {
+	float Input::GetMouseY() {
 
-		auto [x, y] = GetMousePosImpl();
+		auto [x, y] = GetMousePosition();
 		return y;
 	}
 
-	float WindowsInput::GetMouseXImpl() {
+	float Input::GetMouseX() {
 
-		auto [x, y] = GetMousePosImpl();
+		auto [x, y] = GetMousePosition();
 		return x;
 	}
 }

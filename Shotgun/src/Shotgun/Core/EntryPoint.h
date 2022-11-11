@@ -16,7 +16,7 @@ int main(int argc, char** argv)
 	app->Run();
 	SG_PROFILE_END_SESSION();
 
-	SG_PROFILE_BEGIN_SESSION("Startup", "ShotgunProfile-Shutdown.json");
+	SG_PROFILE_BEGIN_SESSION("Shutdown", "ShotgunProfile-Shutdown.json");
 	delete app;
 	SG_PROFILE_END_SESSION();
 }
