@@ -16,6 +16,7 @@ namespace Shotgun {
 
 		virtual uint32_t GetWidth() override { return m_Width; }
 		virtual uint32_t GetHeight() override { return m_Height; }
+		virtual uint32_t GetRendererID() override { return m_RendererID; }
 
 		virtual void SetData(void* data, uint32_t size) override;
 

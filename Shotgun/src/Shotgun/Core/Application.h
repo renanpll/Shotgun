@@ -21,6 +21,8 @@ namespace Shotgun
 		Application();
 		virtual ~Application();
 
+		void Close();
+
 		void OnEvent(Event& e);
 
 		void PushLayer(Layer* layer);

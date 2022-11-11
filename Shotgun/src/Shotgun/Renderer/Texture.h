@@ -9,6 +9,7 @@ namespace Shotgun {
 
 		virtual uint32_t GetWidth() = 0;
 		virtual uint32_t GetHeight() = 0;
+		virtual uint32_t GetRendererID() = 0;
 
 		virtual void SetData(void* data, uint32_t size) = 0;
 

@@ -33,6 +33,11 @@ namespace Shotgun
 		Renderer::Shutdown();
 	}
 
+	void Application::Close()
+	{
+		m_Running = false;
+	}
+
 	void Application::OnEvent(Event& e)
 	{
 		SG_PROFILE_FUNCTION();
