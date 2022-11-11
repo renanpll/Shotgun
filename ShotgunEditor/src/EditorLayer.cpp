@@ -163,9 +163,24 @@ namespace Shotgun {
 
 		ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
 
-		uint32_t textureID = m_FrameBuffer->GetColorAttachmentRendererID();
-		ImGui::Image((void*)textureID, ImVec2{ 1280.0f, 720.0f }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 		ImGui::End();
+
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0,0 });
+		ImGui::Begin("Viewport");
+
+		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
+		if (m_ViewPortSize != *((glm::vec2*)&viewportPanelSize))
+		{
+			m_ViewPortSize = { viewportPanelSize.x, viewportPanelSize.y };
+			m_FrameBuffer->Resize((uint32_t)m_ViewPortSize.x, (uint32_t)m_ViewPortSize.y);
+
+			m_CameraController.OnResize(viewportPanelSize.x, viewportPanelSize.y);
+		}
+		uint32_t textureID = m_FrameBuffer->GetColorAttachmentRendererID();
+		ImGui::Image((void*)textureID, ImVec2{ m_ViewPortSize.x, m_ViewPortSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+		
+		ImGui::End();
+		ImGui::PopStyleVar();
 
 		ImGui::End();
 

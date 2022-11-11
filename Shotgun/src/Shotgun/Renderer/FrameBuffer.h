@@ -16,6 +16,8 @@ namespace Shotgun {
 		virtual void Bind() = 0;
 		virtual void UnBind() = 0;
 
+		virtual void Resize(const uint32_t width, const uint32_t height) = 0;
+
 		virtual uint32_t GetColorAttachmentRendererID() const = 0;
 
 		virtual const FrameBufferSpecification& GetSpecification() const = 0;

@@ -1,6 +1,6 @@
 workspace "Shotgun"
 	architecture "x86_64"
-	startproject "Sandbox"
+	startproject "ShotgunEditor"
 
 	configurations
 	{
