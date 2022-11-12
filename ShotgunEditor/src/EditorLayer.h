@@ -29,7 +29,9 @@ namespace Shotgun {
 		Ref<SubTexture2D> m_TextureStairs;
 		Ref<SubTexture2D> m_TextureTree;
 
+		bool m_ViewportFocused = false, m_ViewportHovered = false;
 		glm::vec2 m_ViewPortSize;
+
 		glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 0.7f };
 
 	};

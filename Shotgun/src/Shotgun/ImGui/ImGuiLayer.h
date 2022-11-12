@@ -22,7 +22,10 @@ namespace Shotgun {
 		void Begin();
 		void End();
 
+		void BlockEvents(bool blockEvents) { m_BlockEvents = blockEvents; }
+
 	private:
+		bool m_BlockEvents = true;
 		float m_Time = 0.f;
 
 	};
