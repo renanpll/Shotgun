@@ -17,6 +17,10 @@
 
 #include "Shotgun/ImGui/ImGuiLayer.h"
 
+// ---Scene management----------------
+#include "Shotgun/Scene/Scene.h"
+#include "Shotgun/Scene/Components.h"
+
 // ---Renderer------------------------
 #include "Shotgun/Renderer/Renderer.h"
 #include "Shotgun/Renderer/Renderer2D.h"

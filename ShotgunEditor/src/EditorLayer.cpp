@@ -29,6 +29,13 @@ namespace Shotgun {
 		spec.Height = 720;
 
 		m_FrameBuffer = FrameBuffer::Create(spec);
+
+		m_ActiveScene = CreateRef<Scene>();
+
+		auto square = m_ActiveScene->CreateEntity();
+
+		m_ActiveScene->Reg().emplace<TransformComponent>(square);
+		m_ActiveScene->Reg().emplace<SpriteRendererComponent>(square, glm::vec4{ 0.f, 1.f, 0.f, 1.f });
 	}
 
 	void EditorLayer::OnDetach()
@@ -72,6 +79,10 @@ namespace Shotgun {
 			SG_PROFILE_SCOPE("Renderer Draw");
 			Renderer2D::BeginScene(m_CameraController.GetCamera());
 			
+
+			m_ActiveScene->OnUpdate(ts);
+
+#if OLD_QUADS
 			Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 20.0f, 20.0f }, m_CheckerboardTexture, 10.0f);
 			
 			for (float y = -5.0f; y < 5.0f; y += 0.5f)
@@ -92,6 +103,8 @@ namespace Shotgun {
 			Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.2f }, { 1.0f, 1.0f }, m_ChernoLogoTexture, 10.0f, glm::vec4(0.2f, 0.4f, 0.2f, 0.7f));
 
 			Renderer2D::DrawRotatedQuad({ 0.0f, 0.0f, 0.3f }, { 1.0f, 1.0f }, glm::radians(rotation), m_ChernoLogoTexture, 1.0f, glm::vec4(1.f));
+
+#endif // OLDQUADS
 
 			Renderer2D::EndScene();
 

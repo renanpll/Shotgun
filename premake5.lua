@@ -18,6 +18,7 @@ IncludeDir["Glad"] = "Shotgun/vendor/Glad/include"
 IncludeDir["ImGui"] = "Shotgun/vendor/imgui"
 IncludeDir["glm"] = "Shotgun/vendor/glm"
 IncludeDir["stb_image"] = "Shotgun/vendor/stb_image"
+IncludeDir["entt"] = "Shotgun/vendor/entt/include"
 
 group "Dependencies"
 	include "Shotgun/vendor/GLFW"
@@ -63,7 +64,8 @@ project "Shotgun"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb_image}"
+		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.entt}"
 	}
 
 	links 
@@ -121,7 +123,8 @@ project "ShotgunEditor"
 		"Shotgun/vendor/spdlog/include",
 		"Shotgun/src",
 		"Shotgun/vendor",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
 	}
 
 	links
@@ -170,7 +173,8 @@ project "Sandbox"
 		"Shotgun/vendor/spdlog/include",
 		"Shotgun/src",
 		"Shotgun/vendor",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
 	}
 
 	links

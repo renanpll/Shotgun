@@ -23,6 +23,8 @@ namespace Shotgun {
 		Ref<Shader> m_FlatColorShader;
 		Ref<FrameBuffer> m_FrameBuffer;
 
+		Ref<Scene> m_ActiveScene;
+
 		Ref<Texture2D> m_CheckerboardTexture;
 		Ref<Texture2D> m_ChernoLogoTexture;
 		Ref<Texture2D> m_SpriteSheet;
