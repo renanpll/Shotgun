@@ -5,6 +5,8 @@
 #include "Shotgun/Core/Timestep.h"
 
 namespace Shotgun {
+	
+	class Entity;
 
 	class Scene
 	{
@@ -12,7 +14,7 @@ namespace Shotgun {
 		Scene();
 		~Scene();
 
-		entt::entity CreateEntity();
+		Entity CreateEntity(const std::string& name = std::string());
 
 		void OnUpdate(Timestep ts);
 
@@ -21,5 +23,7 @@ namespace Shotgun {
 
 	private:
 		entt::registry m_Registry;
+
+		friend class Entity;
 	};
 }

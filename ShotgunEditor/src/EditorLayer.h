@@ -24,6 +24,7 @@ namespace Shotgun {
 		Ref<FrameBuffer> m_FrameBuffer;
 
 		Ref<Scene> m_ActiveScene;
+		Entity m_squareEntity;
 
 		Ref<Texture2D> m_CheckerboardTexture;
 		Ref<Texture2D> m_ChernoLogoTexture;
@@ -33,8 +34,6 @@ namespace Shotgun {
 
 		bool m_ViewportFocused = false, m_ViewportHovered = false;
 		glm::vec2 m_ViewportSize;
-
-		glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 0.7f };
 
 	};
 }

@@ -19,6 +19,7 @@
 
 // ---Scene management----------------
 #include "Shotgun/Scene/Scene.h"
+#include "Shotgun/Scene/Entity.h"
 #include "Shotgun/Scene/Components.h"
 
 // ---Renderer------------------------

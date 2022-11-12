@@ -30,12 +30,12 @@ namespace Shotgun {
 
 		m_FrameBuffer = FrameBuffer::Create(spec);
 
-		m_ActiveScene = CreateRef<Scene>();
+		m_ActiveScene = CreateRef<Scene>();	
 
-		auto square = m_ActiveScene->CreateEntity();
+		m_squareEntity = m_ActiveScene->CreateEntity("Square");
+		
+		m_squareEntity.AddComponent<SpriteRendererComponent>(glm::vec4{0.2f, 0.8f, 0.6f, 1.f});
 
-		m_ActiveScene->Reg().emplace<TransformComponent>(square);
-		m_ActiveScene->Reg().emplace<SpriteRendererComponent>(square, glm::vec4{ 0.f, 1.f, 0.f, 1.f });
 	}
 
 	void EditorLayer::OnDetach()
@@ -78,6 +78,7 @@ namespace Shotgun {
 
 			SG_PROFILE_SCOPE("Renderer Draw");
 			Renderer2D::BeginScene(m_CameraController.GetCamera());
+			
 			
 
 			m_ActiveScene->OnUpdate(ts);
@@ -184,7 +185,15 @@ namespace Shotgun {
 		ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
 		ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 
-		ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
+		if (m_squareEntity)
+		{
+			ImGui::Separator();
+			auto& tag = m_squareEntity.GetComponent<TagComponent>().Tag;
+			ImGui::Text("%s", tag.c_str());
+			auto& squareColor = m_squareEntity.GetComponent<SpriteRendererComponent>().Color;
+			ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
+			ImGui::Separator();
+		}
 
 		ImGui::End();
 
