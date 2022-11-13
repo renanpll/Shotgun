@@ -79,8 +79,6 @@ namespace Shotgun {
 			SG_PROFILE_SCOPE("Renderer Draw");
 			Renderer2D::BeginScene(m_CameraController.GetCamera());
 			
-			
-
 			m_ActiveScene->OnUpdate(ts);
 
 #if OLD_QUADS

@@ -2,7 +2,7 @@
 
 #include <glm/glm.hpp>
 
-namespace {
+namespace Shotgun {
 
 	struct TagComponent
 	{
@@ -41,4 +41,5 @@ namespace {
 			: Color(color) {}
 
 	};
+
 }

@@ -28,17 +28,9 @@ namespace Shotgun {
 	class Instrumentor
 	{
 
-	private:
-		std::mutex m_Mutex;
-		InstrumentationSession* m_CurrentSession;
-		std::ofstream m_OutputStream;
-		int m_ProfileCount;
-
 	public:
-		Instrumentor()
-			: m_CurrentSession(nullptr)
-		{
-		}
+		Instrumentor(const Instrumentor&) = delete;
+		Instrumentor(Instrumentor&&) = delete;
 
 		void BeginSession(const std::string& name, const std::string& filepath = "results.json")
 		{
@@ -107,6 +99,15 @@ namespace Shotgun {
 		}
 
 	private:
+		Instrumentor()
+			: m_CurrentSession(nullptr)
+		{
+		}
+
+		~Instrumentor()
+		{
+			EndSession();
+		}
 
 		void WriteHeader()
 		{
@@ -131,6 +132,10 @@ namespace Shotgun {
 			}
 		}
 
+	private:
+		std::mutex m_Mutex;
+		InstrumentationSession* m_CurrentSession;
+		std::ofstream m_OutputStream;
 	};
 
 	class InstrumentationTimer
@@ -234,8 +239,11 @@ namespace Shotgun {
 
 	#define SG_PROFILE_BEGIN_SESSION(name, filepath) ::Shotgun::Instrumentor::Get().BeginSession(name, filepath)
 	#define SG_PROFILE_END_SESSION() ::Shotgun::Instrumentor::Get().EndSession()
-	#define SG_PROFILE_SCOPE(name) constexpr auto fixedName = ::Shotgun::InstrumentorUtils::CleanupOutputString(name, "__cdecl ");\
-										::Shotgun::InstrumentationTimer timer##__LINE__(fixedName.Data)
+	#define SG_PROFILE_SCOPE_LINE2(name, line) constexpr auto fixedName##line = ::Shotgun::InstrumentorUtils::CleanupOutputString(name, "__cdecl ");\
+																				::Shotgun::InstrumentationTimer timer##line(fixedName##line.Data)
+
+	#define SG_PROFILE_SCOPE_LINE(name, line) SG_PROFILE_SCOPE_LINE2(name, line)
+	#define SG_PROFILE_SCOPE(name) SG_PROFILE_SCOPE_LINE(name, __LINE__)
 	#define SG_PROFILE_FUNCTION() SG_PROFILE_SCOPE(SG_FUNC_SIG)
 #else
 #define SG_PROFILE_BEGIN_SESSION(name, filepath)
