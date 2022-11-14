@@ -1,5 +1,6 @@
 #pragma once
 #include "Shotgun.h"
+#include "Panels/SceneHierarchyPanel.h"
 
 namespace Shotgun {
 
@@ -38,6 +39,9 @@ namespace Shotgun {
 
 		bool m_ViewportFocused = false, m_ViewportHovered = false;
 		glm::vec2 m_ViewportSize;
+
+		// Panels
+		SceneHierarchyPanel m_SceneHierarchyPanel;
 
 	};
 }
