@@ -2,6 +2,8 @@
 
 #include <glm/glm.hpp>
 
+#include "SceneCamera.h"
+
 namespace Shotgun {
 
 	struct TagComponent
@@ -34,6 +36,7 @@ namespace Shotgun {
 	struct SpriteRendererComponent
 	{
 		glm::vec4 Color = { 1.0f, 1.0f, 1.0f, 1.0f };
+		// TODO: add texture and subtexture support
 
 		SpriteRendererComponent() = default;
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;
@@ -42,4 +45,13 @@ namespace Shotgun {
 
 	};
 
+	struct CameraComponent
+	{
+		SceneCamera Camera;
+		bool Primary = true; // TODO: move it to the scene
+		bool FixedAspectRatio = false;
+
+		CameraComponent() = default;
+		CameraComponent(const CameraComponent&) = default;
+	};
 }

@@ -25,6 +25,10 @@ namespace Shotgun {
 
 		Ref<Scene> m_ActiveScene;
 		Entity m_squareEntity;
+		Entity m_MainCameraEntity;
+		Entity m_SecondCamera;
+
+		bool m_PrimaryCamera = true;
 
 		Ref<Texture2D> m_CheckerboardTexture;
 		Ref<Texture2D> m_ChernoLogoTexture;

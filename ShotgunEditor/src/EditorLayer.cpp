@@ -17,6 +17,7 @@ namespace Shotgun {
 	{
 		SG_PROFILE_FUNCTION();
 
+		// Loading textures and subtextures
 		m_CheckerboardTexture = Shotgun::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_ChernoLogoTexture = Texture2D::Create("assets/textures/ChernoLogo.png");
 		m_SpriteSheet = Texture2D::Create("assets/textures/RPGpack_sheet_2X.png");
@@ -24,15 +25,36 @@ namespace Shotgun {
 		m_TextureStairs = SubTexture2D::CreateFromCoords(m_SpriteSheet, { 7, 6 }, { 128, 128 });
 		m_TextureTree = SubTexture2D::CreateFromCoords(m_SpriteSheet, { 2, 1 }, { 128, 128 }, {1, 2});
 
+		// Creating framebuffer
 		FrameBufferSpecification spec;
 		spec.Width = 1280;
 		spec.Height = 720;
-
 		m_FrameBuffer = FrameBuffer::Create(spec);
 
-		m_ActiveScene = CreateRef<Scene>();	
+		// Creating scene
+		m_ActiveScene = CreateRef<Scene>();
+
+		m_MainCameraEntity = m_ActiveScene->CreateEntity("Camera Entity");
+		m_MainCameraEntity.AddComponent<CameraComponent>();
+
+		m_SecondCamera = m_ActiveScene->CreateEntity("Second Camera");
+		auto& cameraComponent = m_SecondCamera.AddComponent<CameraComponent>();
+		cameraComponent.Primary = false;
 
 		m_squareEntity = m_ActiveScene->CreateEntity("Square");
+
+		for (float y = -5.0f; y < 5.0f; y += 1.f)
+		{
+			for (float x = -5.0f; x < 5.0f; x += 1.f)
+			{
+				auto entity = m_ActiveScene->CreateEntity("Square");
+				auto& transform = entity.GetComponent<TransformComponent>();
+				transform.Transform = glm::translate(glm::mat4(1.f), glm::vec3{ x, y, 0.f })
+					* glm::scale(glm::mat4(1.f), glm::vec3(0.7f));
+
+				entity.AddComponent<SpriteRendererComponent>(glm::vec4{ (x + 5.0f) / 10.0f, 0.4f, (y + 5.0f) / 10.0f, 0.7f });
+			}
+		}
 		
 		m_squareEntity.AddComponent<SpriteRendererComponent>(glm::vec4{0.2f, 0.8f, 0.6f, 1.f});
 
@@ -55,6 +77,8 @@ namespace Shotgun {
 		{
 			m_FrameBuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 			m_CameraController.OnResize(m_ViewportSize.x, m_ViewportSize.y);
+
+			m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 		}
 
 		//Update
@@ -73,39 +97,9 @@ namespace Shotgun {
 		}
 
 		{
-			static float rotation = 0.f;
-			rotation += ts * 50.f;
-
 			SG_PROFILE_SCOPE("Renderer Draw");
-			Renderer2D::BeginScene(m_CameraController.GetCamera());
 			
 			m_ActiveScene->OnUpdate(ts);
-
-#if OLD_QUADS
-			Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 20.0f, 20.0f }, m_CheckerboardTexture, 10.0f);
-			
-			for (float y = -5.0f; y < 5.0f; y += 0.5f)
-			{
-				for (float x = -5.0f; x < 5.0f; x += 0.5f)
-				{
-					glm::vec4 color = { (x + 5.0f) / 10.0f, 0.4f, (y + 5.0f) / 10.0f, 0.7f };
-					Renderer2D::DrawQuad({ x, y, 0.f }, { 0.45f, 0.45f }, color);
-				}
-			}
-			Renderer2D::DrawQuad({ -1.0f, 0.0f, 0.1f }, { 0.3f, 0.3f }, m_TextureStairs);
-			Renderer2D::DrawRotatedQuad({ -0.6f, 0.0f , 0.1f}, { 0.3f, 0.6f }, glm::radians(rotation), m_TextureTree, 1.f, glm::vec4(0.5f));
-			Renderer2D::DrawQuad({ -0.2f, 0.0f, 0.1f }, { 0.3f, 0.3f }, m_SquareColor);
-			Renderer2D::DrawRotatedQuad({ 0.2f, 0.0f, 0.1f }, { 0.3f, 0.3f }, glm::radians(rotation), m_SquareColor);
-			Renderer2D::DrawQuad({ 0.6f, 0.0f, 0.1f }, { 0.3f, 0.3f }, m_SquareColor);
-			Renderer2D::DrawRotatedQuad({ 1.0f, 0.0f, 0.1f }, { 0.3f, 0.3f }, glm::radians(rotation), m_SquareColor);
-
-			Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.2f }, { 1.0f, 1.0f }, m_ChernoLogoTexture, 10.0f, glm::vec4(0.2f, 0.4f, 0.2f, 0.7f));
-
-			Renderer2D::DrawRotatedQuad({ 0.0f, 0.0f, 0.3f }, { 1.0f, 1.0f }, glm::radians(rotation), m_ChernoLogoTexture, 1.0f, glm::vec4(1.f));
-
-#endif // OLDQUADS
-
-			Renderer2D::EndScene();
 
 			m_FrameBuffer->UnBind();
 		}
@@ -191,6 +185,21 @@ namespace Shotgun {
 			auto& squareColor = m_squareEntity.GetComponent<SpriteRendererComponent>().Color;
 			ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
 			ImGui::Separator();
+		}
+
+		ImGui::DragFloat3("Camera Transform",
+			glm::value_ptr(m_MainCameraEntity.GetComponent<TransformComponent>().Transform[3]));
+		if (ImGui::Checkbox("Camera A", &m_PrimaryCamera))
+		{
+			m_MainCameraEntity.GetComponent<CameraComponent>().Primary = m_PrimaryCamera;
+			m_SecondCamera.GetComponent<CameraComponent>().Primary = !m_PrimaryCamera;
+		}
+
+		{
+			auto& camera = m_SecondCamera.GetComponent<CameraComponent>().Camera;
+			float orthoSize = camera.GetOrthographicSize();
+			if (ImGui::DragFloat("Second Camera Ortho Size", &orthoSize))
+				camera.SetOrthographicSize(orthoSize);
 		}
 
 		ImGui::End();
