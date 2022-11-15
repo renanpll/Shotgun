@@ -11,6 +11,7 @@ namespace Shotgun {
 
 	public:
 		Entity() = default;
+		Entity(const Entity& other) = default;
 		Entity(entt::entity entityHandle, Scene* scene)
 			: m_EntityHandle(entityHandle), m_Scene(scene) {}
 
@@ -41,18 +42,18 @@ namespace Shotgun {
 		template<typename T>
 		bool HasComponent()
 		{
-			return m_Scene->m_Registry.any_of<T>(m_EntityHandle);
+			return m_Scene->m_Registry.all_of<T>(m_EntityHandle);
 		}
 
 		operator bool() const { return m_EntityHandle != entt::null; }
-		operator uint32_t() { return (uint32_t)m_EntityHandle; }
+		operator uint32_t() const { return (uint32_t)m_EntityHandle; }
 
-		bool operator==(const Entity other)
+		bool operator==(const Entity& other) const
 		{
 			return m_EntityHandle == other.m_EntityHandle && m_Scene == other.m_Scene;
 		}
 
-		bool operator!=(const Entity other)
+		bool operator!=(const Entity& other) const
 		{
 			return !(*this == other);
 		}
