@@ -31,14 +31,38 @@ namespace Shotgun {
 		if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
 			m_SelectionContext = {};
 
-		ImGui::End();
+			if (ImGui::BeginPopupContextWindow(0, ImGuiPopupFlags_MouseButtonRight | ImGuiPopupFlags_NoOpenOverItems))
+			{
+				if (ImGui::MenuItem("Create Entity"))
+					m_Context->CreateEntity("Empty Entity");
 
+				ImGui::EndPopup();
+			}
+			
+		ImGui::End();
 
 		ImGui::Begin("Properties");
 
 		if (m_SelectionContext)
 		{
 			DrawComponents(m_SelectionContext);
+
+			if (ImGui::Button("Add Component"))
+				ImGui::OpenPopup("AddComponent");
+
+			if (ImGui::BeginPopup("AddComponent")) {
+
+				if (ImGui::MenuItem("Camera Component"))
+					m_SelectionContext.AddComponent<CameraComponent>();
+
+				if (ImGui::MenuItem("Sprite Renderer Component"))
+					m_SelectionContext.AddComponent<SpriteRendererComponent>();
+
+				if (ImGui::MenuItem("Native Script Component"))
+					m_SelectionContext.AddComponent<NativeScriptComponent>();
+
+				ImGui::EndPopup();
+			}
 		}
 
 		ImGui::End();
@@ -55,14 +79,24 @@ namespace Shotgun {
 			m_SelectionContext = entity;
 		}
 
-		if (opened)
+		bool entityDeleted = false;
+		if (ImGui::BeginPopupContextItem())
 		{
-			ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow;
-			// TODO: Add components here
-			ImGui::TreePop();
+			if (ImGui::MenuItem("Delete Entity"))
+				entityDeleted = true;
+
+			ImGui::EndPopup();
+		}
+
+		if (entityDeleted)
+		{
+			if (m_SelectionContext == entity)
+				m_SelectionContext = {};
+
+			m_Context->DestroyEntity(entity);
 		}
 	}
-
+	
 	static void DrawVec3Control(const std::string& label, glm::vec3& values, float resetValue = 0.0f, float columnWidth = 100.0f)
 	{
 		ImGui::PushID(label.c_str());
@@ -122,6 +156,8 @@ namespace Shotgun {
 
 	void SceneHierarchyPanel::DrawComponents(Entity entity)
 	{
+		const ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_DefaultOpen;
+
 		if (entity.HasComponent<TagComponent>())
 		{
 			auto& tag = entity.GetComponent<TagComponent>().Tag;
@@ -138,7 +174,7 @@ namespace Shotgun {
 
 		if (entity.HasComponent<TransformComponent>())
 		{
-			if (ImGui::TreeNodeEx((void*)typeid(TransformComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Transform"))
+			if (ImGui::TreeNodeEx((void*)typeid(TransformComponent).hash_code(), treeNodeFlags, "Transform"))
 			{
 				auto& tc = entity.GetComponent<TransformComponent>();
 				DrawVec3Control("Translation", tc.Translation);
@@ -153,17 +189,56 @@ namespace Shotgun {
 
 		if (entity.HasComponent<SpriteRendererComponent>())
 		{
-			if (ImGui::TreeNodeEx((void*)typeid(SpriteRendererComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Sprite Renderer"))
+			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, { 4,4 });
+			const bool open = ImGui::TreeNodeEx((void*)typeid(SpriteRendererComponent).hash_code(), treeNodeFlags, "Sprite Renderer");
+			
+			ImGui::SameLine(ImGui::GetWindowWidth() - 25.f);
+
+			if (ImGui::Button("+", ImVec2{ 20, 20}))
+				ImGui::OpenPopup("ComponentSettings");
+
+			ImGui::PopStyleVar();
+
+			bool componentDeleted = false;
+			if (ImGui::BeginPopup("ComponentSettings"))
+			{
+				if (ImGui::MenuItem("Remove Component"))
+					componentDeleted = true;
+				ImGui::EndPopup();
+			}
+
+			if (open)
 			{
 				auto& src = entity.GetComponent<SpriteRendererComponent>();
 				ImGui::ColorEdit4("Color", glm::value_ptr(src.Color));
 				ImGui::TreePop();
 			}
+
+			if (componentDeleted)
+				m_SelectionContext.RemoveComponent<SpriteRendererComponent>();
 		}
 
 		if(entity.HasComponent<CameraComponent>())
 		{
-			if (ImGui::TreeNodeEx((void*)typeid(CameraComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Camera Component"))
+			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, { 4,4 });
+			const bool open = ImGui::TreeNodeEx((void*)typeid(SpriteRendererComponent).hash_code(), treeNodeFlags, "Camera Component");
+
+			ImGui::SameLine(ImGui::GetWindowWidth() - 25.f);
+
+			if (ImGui::Button("+", ImVec2{ 20, 20 }))
+				ImGui::OpenPopup("ComponentSettings");
+
+			ImGui::PopStyleVar();
+
+			bool componentDeleted = false;
+			if (ImGui::BeginPopup("ComponentSettings"))
+			{
+				if (ImGui::MenuItem("Remove Component"))
+					componentDeleted = true;
+				ImGui::EndPopup();
+			}
+
+			if (open)
 			{
 				auto& cameraComponent = entity.GetComponent<CameraComponent>();
 				auto& camera = cameraComponent.Camera;
@@ -216,8 +291,9 @@ namespace Shotgun {
 				}
 				ImGui::TreePop();
 			}
+
+			if (componentDeleted)
+				m_SelectionContext.RemoveComponent<CameraComponent>();
 		}
 	}
-
-	
 }

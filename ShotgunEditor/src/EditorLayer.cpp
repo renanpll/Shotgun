@@ -43,19 +43,6 @@ namespace Shotgun {
 
 		m_squareEntity = m_ActiveScene->CreateEntity("Square colored");
 
-		for (float y = -5.0f; y < 5.0f; y += 1.f)
-		{
-			for (float x = -5.0f; x < 5.0f; x += 1.f)
-			{
-				auto entity = m_ActiveScene->CreateEntity("Square");
-				auto& transform = entity.GetComponent<TransformComponent>();
-				transform.Translation = glm::vec3{ x, y, 0.f };
-				transform.Scale =  glm::vec3(0.7f);
-
-				entity.AddComponent<SpriteRendererComponent>(glm::vec4{ (x + 5.0f) / 10.0f, 0.4f, (y + 5.0f) / 10.0f, 0.7f });
-			}
-		}
-		
 		m_squareEntity.AddComponent<SpriteRendererComponent>(glm::vec4{0.2f, 0.8f, 0.6f, 1.f});
 
 		class CameraController : public ScriptableEntity
