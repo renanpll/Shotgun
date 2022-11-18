@@ -18,6 +18,13 @@ namespace Shotgun {
 		virtual void OnEvent(Event& e) override;
 
 	private:
+		bool OnKeyPressed(KeyPressedEvent& e);
+
+		void NewScene();
+		void OpenScene();
+		void SaveSceneAs();
+
+	private:
 		Shotgun::OrthographicCameraController m_CameraController;
 
 		Ref<VertexArray> m_VertexArray;
