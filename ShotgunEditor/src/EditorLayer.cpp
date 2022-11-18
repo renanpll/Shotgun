@@ -3,8 +3,9 @@
 
 #include <imgui/imgui.h>
 #include <glm/gtc/type_ptr.hpp>
-#include <Platform/OpenGL/OpenGLShader.h>
 #include <chrono>
+#include <Platform/OpenGL/OpenGLShader.h>
+#include <Shotgun/Scene/SceneSerializer.h>
 
 namespace Shotgun {
 
@@ -41,7 +42,7 @@ namespace Shotgun {
 		auto& cameraComponent = m_SecondCamera.AddComponent<CameraComponent>();
 		cameraComponent.Primary = false;
 
-		m_squareEntity = m_ActiveScene->CreateEntity("Square colored");
+		m_squareEntity = m_ActiveScene->CreateEntity("Square");
 
 		m_squareEntity.AddComponent<SpriteRendererComponent>(glm::vec4{0.2f, 0.8f, 0.6f, 1.f});
 
@@ -78,6 +79,8 @@ namespace Shotgun {
 		m_SecondCamera.AddComponent<NativeScriptComponent>().Bind<CameraController>();
 
 		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+		SceneSerializer serializer(m_ActiveScene);
+		serializer.Serialize("assets/scenes/test_scene.shot");
 	}
 
 	void EditorLayer::OnDetach()
@@ -214,8 +217,8 @@ namespace Shotgun {
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 		m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
 
-		uint32_t textureID = m_FrameBuffer->GetColorAttachmentRendererID();
-		ImGui::Image((void*)textureID, ImVec2{ m_ViewportSize.x, m_ViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+		uint64_t textureID = m_FrameBuffer->GetColorAttachmentRendererID();
+		ImGui::Image(reinterpret_cast<void*>(textureID), ImVec2{ m_ViewportSize.x, m_ViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 		
 		ImGui::End();
 		ImGui::PopStyleVar();
