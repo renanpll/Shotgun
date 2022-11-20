@@ -33,6 +33,7 @@ namespace Shotgun {
 
 		// Creating framebuffer
 		FrameBufferSpecification spec;
+		spec.Attachments = { FrameBufferTextureFormat::RGBA8, FrameBufferTextureFormat::Depth };
 		spec.Width = 1280;
 		spec.Height = 720;
 		m_FrameBuffer = FrameBuffer::Create(spec);

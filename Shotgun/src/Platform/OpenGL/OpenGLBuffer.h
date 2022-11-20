@@ -19,7 +19,7 @@ namespace Shotgun {
 		virtual void SetData(void* data, uint32_t size) override;
 
 		virtual const BufferLayout& GetLayout() const override { return m_Layout; }
-		virtual void SetLayout(BufferLayout& layout) override { m_Layout = layout; }
+		virtual void SetLayout(const BufferLayout& layout) override { m_Layout = layout; }
 
 	private:
 		uint32_t m_RendererID;
