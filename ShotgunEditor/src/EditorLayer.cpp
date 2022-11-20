@@ -14,7 +14,7 @@
 namespace Shotgun {
 
 	EditorLayer::EditorLayer()
-		:Layer("Sandbox2D"), m_CameraController(1280.f / 720.f, true)
+		:Layer("Sandbox2D"), m_EditorCamera(30.f, 16.f / 9.f, 0.1f, 1000.f)
 	{
 	}
 
@@ -22,6 +22,7 @@ namespace Shotgun {
 	{
 		SG_PROFILE_FUNCTION();
 
+		// TODO: remove assets from here
 		// Loading textures and subtextures
 		m_CheckerboardTexture = Shotgun::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_ChernoLogoTexture = Texture2D::Create("assets/textures/ChernoLogo.png");
@@ -103,14 +104,13 @@ namespace Shotgun {
 			(spec.Width != m_ViewportSize.x || spec.Height != m_ViewportSize.y))
 		{
 			m_FrameBuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
-			m_CameraController.OnResize(m_ViewportSize.x, m_ViewportSize.y);
+			m_EditorCamera.SetViewportSize(m_ViewportSize.x, m_ViewportSize.y);
 
 			m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 		}
 
 		//Update
-		if (m_ViewportFocused)
-			m_CameraController.OnUpdate(ts);
+		m_EditorCamera.OnUpdate(ts);
 
 		//Render
 		Renderer2D::ResetStats();
@@ -126,7 +126,7 @@ namespace Shotgun {
 		{
 			SG_PROFILE_SCOPE("Renderer Draw");
 			
-			m_ActiveScene->OnUpdate(ts);
+			m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
 
 			m_FrameBuffer->UnBind();
 		}
@@ -244,11 +244,15 @@ namespace Shotgun {
 			float windowHeight = (float)ImGui::GetWindowHeight();
 			ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
 
-			// Camera
-			auto cameraEntity = m_ActiveScene->GetPrimaryCameraEntity();
-			const auto& camera = cameraEntity.GetComponent<CameraComponent>().Camera;
-			const glm::mat4& cameraProjection = camera.GetProjection();
-			glm::mat4 cameraView = glm::inverse(cameraEntity.GetComponent<TransformComponent>().GetTransform());
+			// Camera Runtime
+			//auto cameraEntity = m_ActiveScene->GetPrimaryCameraEntity();
+			//const auto& camera = cameraEntity.GetComponent<CameraComponent>().Camera;
+			//const glm::mat4& cameraProjection = camera.GetProjection();
+			//glm::mat4 cameraView = glm::inverse(cameraEntity.GetComponent<TransformComponent>().GetTransform());
+
+			// Editor Camera
+			const glm::mat4& cameraProjection = m_EditorCamera.GetProjection();
+			glm::mat4 cameraView = m_EditorCamera.GetViewMatrix();
 
 			// Entity Transform
 			auto& tc = selectedEntity.GetComponent<TransformComponent>();
@@ -285,7 +289,7 @@ namespace Shotgun {
 
 	void EditorLayer::OnEvent(Event& e)
 	{
-		m_CameraController.OnEvent(e);
+		m_EditorCamera.OnEvent(e);
 
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<KeyPressedEvent>(SG_BIND_EVENT_FN(EditorLayer::OnKeyPressed));

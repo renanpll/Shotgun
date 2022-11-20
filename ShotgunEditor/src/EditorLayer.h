@@ -26,7 +26,6 @@ namespace Shotgun {
 
 	private:
 		// TODO: remove these
-		OrthographicCameraController m_CameraController;
 		Entity m_squareEntity;
 		Entity m_MainCameraEntity;
 		Entity m_SecondCamera;
@@ -35,6 +34,8 @@ namespace Shotgun {
 		Ref<Texture2D> m_SpriteSheet;
 		Ref<SubTexture2D> m_TextureStairs;
 		Ref<SubTexture2D> m_TextureTree;
+
+		EditorCamera m_EditorCamera;
 
 		Ref<FrameBuffer> m_FrameBuffer;
 		Ref<Scene> m_ActiveScene;
