@@ -25,24 +25,21 @@ namespace Shotgun {
 		void SaveSceneAs();
 
 	private:
-		Shotgun::OrthographicCameraController m_CameraController;
-
-		Ref<VertexArray> m_VertexArray;
-		Ref<Shader> m_FlatColorShader;
-		Ref<FrameBuffer> m_FrameBuffer;
-
-		Ref<Scene> m_ActiveScene;
+		// TODO: remove these
+		OrthographicCameraController m_CameraController;
 		Entity m_squareEntity;
 		Entity m_MainCameraEntity;
 		Entity m_SecondCamera;
-
-		bool m_PrimaryCamera = true;
-
 		Ref<Texture2D> m_CheckerboardTexture;
 		Ref<Texture2D> m_ChernoLogoTexture;
 		Ref<Texture2D> m_SpriteSheet;
 		Ref<SubTexture2D> m_TextureStairs;
 		Ref<SubTexture2D> m_TextureTree;
+
+		Ref<FrameBuffer> m_FrameBuffer;
+		Ref<Scene> m_ActiveScene;
+
+		int m_GizmoType = -1;
 
 		bool m_ViewportFocused = false, m_ViewportHovered = false;
 		glm::vec2 m_ViewportSize;

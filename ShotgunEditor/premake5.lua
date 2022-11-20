@@ -19,7 +19,8 @@ project "ShotgunEditor"
 		"%{wks.location}/Shotgun/src",
 		"%{wks.location}/Shotgun/vendor",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.entt}"
+		"%{IncludeDir.entt}",
+		"%{IncludeDir.ImGuizmo}"
 	}
 
 	links

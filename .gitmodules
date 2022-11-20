@@ -17,3 +17,6 @@
 [submodule "Shotgun/vendor/yaml-cpp"]
 	path = Shotgun/vendor/yaml-cpp
 	url = https://github.com/renanpll/yaml-cpp.git
+[submodule "Shotgun/vendor/ImGuizmo"]
+	path = Shotgun/vendor/ImGuizmo
+	url = https://github.com/renanpll/ImGuizmo.git
