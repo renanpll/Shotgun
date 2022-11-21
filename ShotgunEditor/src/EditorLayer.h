@@ -44,6 +44,7 @@ namespace Shotgun {
 
 		bool m_ViewportFocused = false, m_ViewportHovered = false;
 		glm::vec2 m_ViewportSize;
+		glm::vec2 m_ViewportBounds[2];
 
 		// Panels
 		SceneHierarchyPanel m_SceneHierarchyPanel;
