@@ -122,6 +122,8 @@ namespace Shotgun {
 			
 			RenderCommand::SetClearColor({ 0.1F, 0.1F, 0.1F, 1 });
 			RenderCommand::Clear();
+
+			m_FrameBuffer->ClearAttachment(1, -1);
 		}
 
 		// Update Scene
