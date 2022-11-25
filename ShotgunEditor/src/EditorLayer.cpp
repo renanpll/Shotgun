@@ -143,7 +143,7 @@ namespace Shotgun {
 			if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
 			{
 				int pixelData = m_FrameBuffer->ReadPixel(1, mouseX, mouseY);
-				SG_CORE_WARN("Pixel data = {0}", pixelData);
+				m_HoveredEntity = pixelData == -1 ? Entity() : Entity((entt::entity)pixelData, m_ActiveScene.get());
 			}
 
 			m_FrameBuffer->UnBind();
@@ -229,6 +229,7 @@ namespace Shotgun {
 		ImGui::Begin("Stats");
 
 		auto stats = Renderer2D::GetStats();
+
 		ImGui::Text("Renderer2D Stats:");
 		ImGui::Text("Draw Calls: %d", stats.DrawCalls);
 		ImGui::Text("Quads: %d", stats.QuadCount);
@@ -315,6 +316,7 @@ namespace Shotgun {
 
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<KeyPressedEvent>(SG_BIND_EVENT_FN(EditorLayer::OnKeyPressed));
+		dispatcher.Dispatch<MouseButtonPressedEvent>(SG_BIND_EVENT_FN(EditorLayer::OnMouseButtonPressed));
 	}
 
 	bool EditorLayer::OnKeyPressed(KeyPressedEvent& e)
@@ -364,6 +366,25 @@ namespace Shotgun {
 				m_GizmoType = ImGuizmo::OPERATION::ROTATE;
 				break;
 		}
+	}
+
+	bool EditorLayer::OnMouseButtonPressed(MouseButtonPressedEvent& e)
+	{
+		if (e.GetMouseButton() == MouseCode::ButtonLeft)
+		{
+			if (CanMousePick())
+				m_SceneHierarchyPanel.SetSelectedEntity(m_HoveredEntity);
+		}
+		return false;
+	}
+
+	bool EditorLayer::CanMousePick()
+	{
+		return m_ViewportHovered && !ImGuizmo::IsOver() && !Input::IsKeyPressed(KeyCode::LeftAlt);
+	}
+
+	void EditorLayer::MousePick()
+	{
 	}
 
 	void EditorLayer::NewScene()

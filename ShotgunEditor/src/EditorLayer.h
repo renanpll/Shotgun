@@ -18,7 +18,10 @@ namespace Shotgun {
 		virtual void OnEvent(Event& e) override;
 
 	private:
-		bool OnKeyPressed(KeyPressedEvent& e);
+		bool OnKeyPressed(KeyPressedEvent& e); 
+		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
+		bool CanMousePick();
+		void MousePick();
 
 		void NewScene();
 		void OpenScene();
@@ -36,7 +39,7 @@ namespace Shotgun {
 		Ref<SubTexture2D> m_TextureTree;
 
 		EditorCamera m_EditorCamera;
-
+		Entity m_HoveredEntity;
 		Ref<FrameBuffer> m_FrameBuffer;
 		Ref<Scene> m_ActiveScene;
 
