@@ -1,4 +1,5 @@
 include "./vendor/premake/premake_customization/solution_items.lua"
+include "Dependencies.lua"
 
 workspace "Shotgun"
 	architecture "x86_64"
@@ -22,17 +23,6 @@ workspace "Shotgun"
 	}
 
 outputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
-
--- Include directories relative to root folder (solution directory)
-IncludeDir = {}
-IncludeDir["GLFW"] = "%{wks.location}/Shotgun/vendor/GLFW/include"
-IncludeDir["Glad"] = "%{wks.location}/Shotgun/vendor/Glad/include"
-IncludeDir["ImGui"] = "%{wks.location}/Shotgun/vendor/imgui"
-IncludeDir["glm"] = "%{wks.location}/Shotgun/vendor/glm"
-IncludeDir["stb_image"] = "%{wks.location}/Shotgun/vendor/stb_image"
-IncludeDir["entt"] = "%{wks.location}/Shotgun/vendor/entt/include"
-IncludeDir["yaml_cpp"] = "%{wks.location}/Shotgun/vendor/yaml-cpp/include"
-IncludeDir["ImGuizmo"] = "%{wks.location}/Shotgun/vendor/ImGuizmo"
 
 group "Dependencies"
 	include "vendor/premake"
