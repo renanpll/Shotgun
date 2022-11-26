@@ -30,6 +30,7 @@ namespace Shotgun {
 
     void SceneCamera::SetViewportSize(uint32_t width, uint32_t height)
     {
+		SG_ASSERT(width > 0 && height > 0, "Viewport size must be bigger than 0");
         m_AspectRatio = (float)width / (float)height;
         RecalculateProjection();
     }
