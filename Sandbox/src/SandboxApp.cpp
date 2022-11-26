@@ -19,7 +19,7 @@ public:
 
 };
 
-Shotgun::Application* Shotgun::CreateApplication()
+Shotgun::Application* Shotgun::CreateApplication(ApplicationCommandLineArgs args)
 {
 	return new Sandbox();
 }

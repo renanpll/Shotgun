@@ -8,7 +8,8 @@ namespace Shotgun {
 	class ShotgunEditor : public Application
 	{
 	public:
-		ShotgunEditor()
+		ShotgunEditor(ApplicationCommandLineArgs args)
+			: Application("Shotgun Editor", args)
 		{
 			PushLayer(new EditorLayer());
 		}
@@ -19,9 +20,9 @@ namespace Shotgun {
 
 	};
 
-	Application* CreateApplication()
+	Application* CreateApplication(ApplicationCommandLineArgs args)
 	{
-		return new ShotgunEditor();
+		return new ShotgunEditor(args);
 	}
-
+		
 }

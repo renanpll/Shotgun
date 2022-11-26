@@ -15,10 +15,22 @@ int main(int argc, char** argv);
 
 namespace Shotgun
 {
+	struct ApplicationCommandLineArgs
+	{
+		int Count = 0;
+		char** Args = nullptr;
+
+		const char* operator[](int index) const
+		{
+			SG_CORE_ASSERT(index < Count, "");
+			return Args[index];
+		}
+	};
+
 	class Application
 	{
 	public:
-		Application();
+		Application(const std::string& name = "Shotgun App", ApplicationCommandLineArgs args = ApplicationCommandLineArgs());
 		virtual ~Application();
 
 		void Close();
@@ -33,6 +45,8 @@ namespace Shotgun
 		inline static Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
 
+		ApplicationCommandLineArgs GetCommandLineArgs() const { return m_CommandLineArgs; }
+
 	private:
 		void Run();
 
@@ -40,6 +54,7 @@ namespace Shotgun
 		bool OnWindowResize(WindowResizeEvent& e);
 
 	private:
+		ApplicationCommandLineArgs m_CommandLineArgs;
 		static Application* s_Instance;
 		Scope<Window> m_Window;
 
@@ -53,5 +68,5 @@ namespace Shotgun
 		friend int ::main(int argc, char** argv);
 	};
 
-	Application* CreateApplication();
+	Application* CreateApplication(ApplicationCommandLineArgs args);
 }

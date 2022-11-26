@@ -41,6 +41,14 @@ namespace Shotgun {
 		// Creating scene
 		m_ActiveScene = CreateRef<Scene>();
 
+		auto commandLineArgs = Application::Get().GetCommandLineArgs();
+		if (commandLineArgs.Count > 1)
+		{
+			auto sceneFilePath = commandLineArgs[1];
+			SceneSerializer serializer(m_ActiveScene);
+			serializer.Deserialize(sceneFilePath);
+		}
+
 #if 0
 		m_MainCameraEntity = m_ActiveScene->CreateEntity("Camera Entity");
 		m_MainCameraEntity.AddComponent<CameraComponent>();
