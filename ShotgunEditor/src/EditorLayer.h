@@ -1,6 +1,7 @@
 #pragma once
 #include "Shotgun.h"
 #include "Panels/SceneHierarchyPanel.h"
+#include "Panels/ContentBrowserPanel.h"
 
 namespace Shotgun {
 
@@ -51,6 +52,7 @@ namespace Shotgun {
 
 		// Panels
 		SceneHierarchyPanel m_SceneHierarchyPanel;
+		ContentBrowserPanel m_ContentBrowserPanel;
 
 	};
 }

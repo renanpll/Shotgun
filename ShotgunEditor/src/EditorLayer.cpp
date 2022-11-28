@@ -233,6 +233,7 @@ namespace Shotgun {
 		}
 
 		m_SceneHierarchyPanel.OnImGuiRender();
+		m_ContentBrowserPanel.OnImGuiRenderer();
 
 		ImGui::Begin("Stats");
 
