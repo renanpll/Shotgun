@@ -198,7 +198,15 @@ namespace Shotgun {
 
 	void Renderer2D::DrawSprite(const glm::mat4& transform, SpriteRendererComponent& src, int entityID)
 	{
-		DrawQuad(transform, src.Color, entityID);
+		if (src.Texture)
+		{
+			if (src.SpriteSheet)
+				DrawQuad(transform, src.Subtexture, src.TilingFactor, src.Color, entityID);
+			else
+				DrawQuad(transform, src.Texture, src.TilingFactor, src.Color, entityID);
+		}
+		else
+			DrawQuad(transform, src.Color, entityID);
 	}
 	
 	void Renderer2D::DrawQuad(const glm::mat4& transform, const glm::vec4& color, int entityID)

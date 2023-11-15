@@ -5,8 +5,11 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <imgui/imgui.h>
 #include <imgui/imgui_internal.h>
+#include <filesystem>
 
 namespace Shotgun {
+
+	extern const std::filesystem::path g_AssetPath;
 
 	SceneHierarchyPanel::SceneHierarchyPanel(const Ref<Scene>& context)
 	{
@@ -250,6 +253,53 @@ namespace Shotgun {
 		DrawComponent<SpriteRendererComponent>("Sprite Renderer", entity, [](auto& component)
 		{
 			ImGui::ColorEdit4("Color", glm::value_ptr(component.Color));
+
+			ImGui::Text("Texture");
+			ImGui::SameLine();
+
+			// TODO: Right click (or something else) to remove the texture from the entity
+			if (component.Texture)
+				ImGui::ImageButton((ImTextureID)component.Texture->GetRendererID(), { 60.f, 60.f });
+			else
+				ImGui::Button("", { 60.f,60.f });
+
+			if (ImGui::BeginDragDropTarget())
+			{
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+				{
+					const wchar_t* path = (const wchar_t*)payload->Data;
+					std::filesystem::path texturePath = std::filesystem::path(g_AssetPath) / path;
+					component.Texture = Texture2D::Create(texturePath.string());
+				}
+				ImGui::EndDragDropTarget();
+			}
+
+			ImGui::Checkbox("Sprite Sheet", &component.SpriteSheet);
+			if (component.SpriteSheet)
+			{
+				component.Subtexture = SubTexture2D::CreateFromCoords(component.Texture, component.subtexCoord, component.subtexSize, component.spriteSize);
+
+				static float coords[2] = { component.subtexCoord.x, component.subtexCoord.y };
+				ImGui::InputFloat2("Coordinates", coords);
+
+				component.subtexCoord.x = coords[0];
+				component.subtexCoord.y = coords[1];
+
+				static float texSize[2] = { component.subtexSize.x, component.subtexSize.y };
+				ImGui::InputFloat2("Subtexture Size", texSize);
+
+				component.subtexSize.x = texSize[0];
+				component.subtexSize.y = texSize[1];
+
+				static float sprSize[2] = { component.spriteSize.x, component.spriteSize.y };
+				ImGui::InputFloat2("Sprite Size", sprSize);
+
+				component.spriteSize.x = sprSize[0];
+				component.spriteSize.y = sprSize[1];
+
+			}
+
+			ImGui::DragFloat("Tiling Factor", &component.TilingFactor, 0.1f, 0.0f, 100.0f);
 		});
 
 		DrawComponent<CameraComponent>("Camera Component", entity, [](auto& component)

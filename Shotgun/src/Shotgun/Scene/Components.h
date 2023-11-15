@@ -7,6 +7,8 @@
 
 #include "SceneCamera.h"
 #include "ScriptableEntity.h"
+#include "Shotgun/Renderer/Texture.h"
+#include "Shotgun/Renderer/SubTexture2D.h"
 
 namespace Shotgun {
 
@@ -47,8 +49,14 @@ namespace Shotgun {
 	struct SpriteRendererComponent
 	{
 		glm::vec4 Color = { 1.0f, 1.0f, 1.0f, 1.0f };
-		// TODO: add texture and subtexture support
-
+		Ref<Texture2D> Texture;
+		Ref<SubTexture2D> Subtexture;
+		float TilingFactor = 1.0f;
+		bool SpriteSheet = false;
+		glm::vec2 subtexCoord = { 0.f, 0.f };
+		glm::vec2 subtexSize = { 128.f, 128.f };
+		glm::vec2 spriteSize = { 1.f, 1.f };
+		
 		SpriteRendererComponent() = default;
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;
 		SpriteRendererComponent(const glm::vec4& color)

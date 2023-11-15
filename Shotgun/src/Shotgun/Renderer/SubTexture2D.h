@@ -18,7 +18,6 @@ namespace Shotgun {
 
 	private:
 		Ref<Texture2D> m_Texture;
-
 		glm::vec2 m_TextureCoords[4];
 	};
 }

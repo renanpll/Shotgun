@@ -24,15 +24,6 @@ namespace Shotgun {
 	{
 		SG_PROFILE_FUNCTION();
 
-		// TODO: remove assets from here
-		// Loading textures and subtextures
-		m_CheckerboardTexture = Shotgun::Texture2D::Create("assets/textures/Checkerboard.png");
-		m_ChernoLogoTexture = Texture2D::Create("assets/textures/ChernoLogo.png");
-		m_SpriteSheet = Texture2D::Create("assets/textures/RPGpack_sheet_2X.png");
-
-		m_TextureStairs = SubTexture2D::CreateFromCoords(m_SpriteSheet, { 7, 6 }, { 128, 128 });
-		m_TextureTree = SubTexture2D::CreateFromCoords(m_SpriteSheet, { 2, 1 }, { 128, 128 }, {1, 2});
-
 		// Creating framebuffer
 		FrameBufferSpecification spec;
 		spec.Attachments = { FrameBufferTextureFormat::RGBA8, FrameBufferTextureFormat::RED_INTEGER, FrameBufferTextureFormat::Depth };
@@ -273,6 +264,8 @@ namespace Shotgun {
 		{
 			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
 			{
+				// TODO: Fix crash when dragging not scene files to the viewport
+				// TODO: Handle textures being dragged to entities in the viewport
 				const wchar_t* path = (const wchar_t*)payload->Data;
 				OpenScene(std::filesystem::path(g_AssetPath) / path);
 			}
