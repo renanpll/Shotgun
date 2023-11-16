@@ -278,25 +278,9 @@ namespace Shotgun {
 			if (component.SpriteSheet)
 			{
 				component.Subtexture = SubTexture2D::CreateFromCoords(component.Texture, component.subtexCoord, component.subtexSize, component.spriteSize);
-
-				static float coords[2] = { component.subtexCoord.x, component.subtexCoord.y };
-				ImGui::InputFloat2("Coordinates", coords);
-
-				component.subtexCoord.x = coords[0];
-				component.subtexCoord.y = coords[1];
-
-				static float texSize[2] = { component.subtexSize.x, component.subtexSize.y };
-				ImGui::InputFloat2("Subtexture Size", texSize);
-
-				component.subtexSize.x = texSize[0];
-				component.subtexSize.y = texSize[1];
-
-				static float sprSize[2] = { component.spriteSize.x, component.spriteSize.y };
-				ImGui::InputFloat2("Sprite Size", sprSize);
-
-				component.spriteSize.x = sprSize[0];
-				component.spriteSize.y = sprSize[1];
-
+				ImGui::InputFloat2("Coordinates", glm::value_ptr(component.subtexCoord));
+				ImGui::InputFloat2("Subtexture Size", glm::value_ptr(component.subtexSize));
+				ImGui::InputFloat2("Sprite Size", glm::value_ptr(component.spriteSize));
 			}
 
 			ImGui::DragFloat("Tiling Factor", &component.TilingFactor, 0.1f, 0.0f, 100.0f);
