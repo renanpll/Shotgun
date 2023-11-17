@@ -2,22 +2,64 @@ Scene: Untitled
 Entities:
   - Entity: 7213678140
     TagComponent:
-      Tag: Camera Entity
+      Tag: Board
     TransformComponent:
-      Translation: [0, 0, 0]
+      Translation: [0, -1.53993607, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
-    CameraComponent:
-      Camera:
-        ProjectionType: 1
-        PerspectiveFOV: 0.785398185
-        PerspectiveNear: 0.00999999978
-        PerspectiveFar: 1000
-        OrthographicSize: 10
-        OrthographicNear: -1
-        OrthographicFar: 1
-      Primary: true
-      FixedAspectRatio: false
+    SpriteRendererComponent:
+      Color: [1, 1, 1, 1]
+      TexturePath: assets\textures\Checkerboard.png
+      TilingFactor: 1
+      SpriteSheet: false
+      SubtexCoord: [0, 0]
+      SubtexSize: [128, 128]
+      SpriteSize: [1, 1]
+  - Entity: 7213678140
+    TagComponent:
+      Tag: Logo
+    TransformComponent:
+      Translation: [0, 1.58393478, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    SpriteRendererComponent:
+      Color: [1, 1, 1, 1]
+      TexturePath: assets\textures\ChernoLogo.png
+      TilingFactor: 4
+      SpriteSheet: false
+      SubtexCoord: [0, 0]
+      SubtexSize: [128, 128]
+      SpriteSize: [1, 1]
+  - Entity: 7213678140
+    TagComponent:
+      Tag: Square
+    TransformComponent:
+      Translation: [0.957501173, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    SpriteRendererComponent:
+      Color: [1, 1, 1, 1]
+      TexturePath: assets\textures\RPGpack_sheet_2X.png
+      TilingFactor: 1
+      SpriteSheet: true
+      SubtexCoord: [0, 10]
+      SubtexSize: [128, 128]
+      SpriteSize: [3, 3]
+  - Entity: 7213678140
+    TagComponent:
+      Tag: Tree
+    TransformComponent:
+      Translation: [-1.09912777, 0, 1]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    SpriteRendererComponent:
+      Color: [1, 1, 1, 1]
+      TexturePath: assets\textures\RPGpack_sheet_2X.png
+      TilingFactor: 1
+      SpriteSheet: true
+      SubtexCoord: [1, 1]
+      SubtexSize: [128, 128]
+      SpriteSize: [1, 2]
   - Entity: 7213678140
     TagComponent:
       Tag: Second Camera
@@ -38,10 +80,19 @@ Entities:
       FixedAspectRatio: false
   - Entity: 7213678140
     TagComponent:
-      Tag: Square
+      Tag: Camera Entity
     TransformComponent:
       Translation: [0, 0, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
-    SpriteRendererComponent:
-      Color: [0.976833999, 0, 0, 1]
+    CameraComponent:
+      Camera:
+        ProjectionType: 1
+        PerspectiveFOV: 0.785398185
+        PerspectiveNear: 0.00999999978
+        PerspectiveFar: 1000
+        OrthographicSize: 10
+        OrthographicNear: -1
+        OrthographicFar: 1
+      Primary: true
+      FixedAspectRatio: false

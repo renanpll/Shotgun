@@ -9,6 +9,29 @@
 namespace YAML {
 
 	template<>
+	struct convert<glm::vec2>
+	{
+		static Node encode(const glm::vec2& rhs)
+		{
+			Node node;
+			node.push_back(rhs.x);
+			node.push_back(rhs.y);
+			node.SetStyle(EmitterStyle::Flow);
+			return node;
+		}
+
+		static bool decode(const Node& node, glm::vec2& rhs)
+		{
+			if (!node.IsSequence() || node.size() != 2)
+				return false;
+
+			rhs.x = node[0].as<float>();
+			rhs.y = node[1].as<float>();
+			return true;
+		}
+	};
+
+	template<>
 	struct convert<glm::vec3>
 	{
 		static Node encode(const glm::vec3& rhs)
@@ -64,6 +87,12 @@ namespace YAML {
 
 namespace Shotgun {
 
+	YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec2& v)
+	{
+		out << YAML::Flow;
+		out << YAML::BeginSeq << v.x << v.y << YAML::EndSeq;
+		return out;
+	}
 
 	YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec3& v)
 	{
@@ -121,6 +150,16 @@ namespace Shotgun {
 
 			auto& src = entity.GetComponent<SpriteRendererComponent>();
 			out << YAML::Key << "Color" << YAML::Value << src.Color;
+
+			if (src.Texture)
+			{
+				out << YAML::Key << "TexturePath" << YAML::Value << src.Texture->GetPath();
+				out << YAML::Key << "TilingFactor" << YAML::Value << src.TilingFactor;
+				out << YAML::Key << "SpriteSheet" << YAML::Value << src.SpriteSheet;
+				out << YAML::Key << "SubtexCoord" << YAML::Value << src.subtexCoord;
+				out << YAML::Key << "SubtexSize" << YAML::Value << src.subtexSize;
+				out << YAML::Key << "SpriteSize" << YAML::Value << src.spriteSize;
+			}
 
 			out << YAML::EndMap; // SpriteRendererComponent
 		}
@@ -240,6 +279,18 @@ namespace Shotgun {
 				{
 					auto& src = deserializedEntity.AddComponent<SpriteRendererComponent>();
 					src.Color = spriteRendererComponent["Color"].as<glm::vec4>();
+					if (spriteRendererComponent["TexturePath"])
+					{
+						std::string texturePath = spriteRendererComponent["TexturePath"].as<std::string>();
+						src.Texture = Texture2D::Create(texturePath);
+						src.TilingFactor = spriteRendererComponent["TilingFactor"].as<float>();
+						src.SpriteSheet = spriteRendererComponent["SpriteSheet"].as<bool>();
+						src.subtexCoord = spriteRendererComponent["SubtexCoord"].as<glm::vec2>();
+						src.subtexSize = spriteRendererComponent["SubtexSize"].as<glm::vec2>();
+						src.spriteSize = spriteRendererComponent["SpriteSize"].as<glm::vec2>();
+						if (src.SpriteSheet)
+							src.Subtexture = SubTexture2D::CreateFromCoords(src.Texture, src.subtexCoord, src.subtexSize, src.spriteSize);
+					}
 				}
 			}
 		}
